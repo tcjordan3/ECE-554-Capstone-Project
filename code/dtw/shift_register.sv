@@ -1,6 +1,6 @@
 `default_nettype none 
 
-module shift_register(in, clk, rst_n, last, band, output);
+module shift_register(in, clk, rst_n, last, band, out);
 	///////////////////////////////////////////////
 	//
 	//
@@ -10,9 +10,9 @@ module shift_register(in, clk, rst_n, last, band, output);
     parameter R = 2;
 	parameter WIDTH = 8;
 
-	input [WIDTH - 1 : 0] in;
-    input clk, rst_n;
-	output [WIDTH - 1 : 0] last, band, output;
+	input reg [WIDTH - 1 : 0] in;
+    input reg clk, rst_n;
+	output reg [WIDTH - 1 : 0] last, band, out;
 
     reg [WIDTH - 1 : 0] sreg [R : 0];
 
@@ -31,7 +31,7 @@ module shift_register(in, clk, rst_n, last, band, output);
 	
 assign last = sreg[0];
 assign band = sreg[R - 1];
-assign output = sreg[R];
+assign out = sreg[R];
 
 endmodule
 

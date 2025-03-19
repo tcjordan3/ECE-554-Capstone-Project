@@ -1,6 +1,6 @@
 `default_nettype none 
 
-module (camera, refer, score, clk, rst_n);
+module dtw(camera, refer, score, clk, rst_n);
 	///////////////////////////////////////////////
 	//
 	//
@@ -10,29 +10,31 @@ module (camera, refer, score, clk, rst_n);
 	parameter R = 10;
 	parameter WIDTH = 8;
 
-	input [WIDTH - 1:0] camera, refer;
-	input rst_n, clk;
-	output [WIDTH - 1:0] score;
+	input reg [WIDTH - 1:0] camera, refer;
+	input reg rst_n, clk;
+	output reg [WIDTH - 1:0] score;
 
-	reg [WIDTH - 1:0] last, band, output, min, accum, distance;
+	reg [WIDTH - 1:0] last, band, out, min, accum, distance;
 	
-	shift_register sreg(.in(accum), .clk(clk), .rst_n(rst_n), .last(last), .band(band), .output(output));
+	shift_register sreg(.in(accum), .clk(clk), .rst_n(rst_n), .last(last), .band(band), .out(out));
 
 	// distance
-	always ff@(posedge clk, negedge rst_n) begin
-		if(!rst_n) begin:
+	always_ff@(posedge clk, negedge rst_n) begin
+		if(!rst_n) begin
 			distance <= 0;
 		end
-		else begin
+		else if (camera >= refer) begin
 			distance <= camera - refer; //mod this
 		end
+		else
+			distance <= refer - camera;
 	end
 
 	// minimum
-	assign min = (last < band) ? (last < output ? last : output) : (band < output ? band : output);
+	assign min = (last < band) ? (last < out ? last : out) : (band < out ? band : out);
 	// add
-	always ff@(posedge clk, negedge rst_n) begin
-		if(!rst_n) begin:
+	always_ff@(posedge clk, negedge rst_n) begin
+		if(!rst_n) begin
 			accum <= 0;
 		end
 		else begin
@@ -40,7 +42,7 @@ module (camera, refer, score, clk, rst_n);
 		end
 	end
 
-	assign score = output;
+	assign score = out;
 
 endmodule
 
