@@ -5,11 +5,11 @@ module CORDIC_tb();
     logic signed [7:0] x;        // x-coordinate input
     logic signed [7:0] y;        // y-coordinate input
     logic start;                 // indicates beginning of approximation
-    logic signed [7:0] angle;    // approximated angle output
+    logic signed [9:0] angle;    // approximated angle output
 
     // intermediate signals
     logic [4:0] k;        // iteration count
-    logic [7:0] LUT_k;    // angle output of LUT
+    logic [9:0] LUT_k;    // angle output of LUT
 
     // module instantiation
     counter iCOUNTER(.clk(clk), .rst_n(rst_n), .start(start), .k(k));
@@ -47,6 +47,7 @@ module CORDIC_tb();
 
         wait(iCORDIC.rdy == 1);
         #20;
+	$display("TEST #1: atan(17/3) ~ 80");
         $display("angle value: %0d", angle);
 
         // TEST #2: atan(-23/6) ~ -75
@@ -61,6 +62,37 @@ module CORDIC_tb();
 
         wait(iCORDIC.rdy == 1);
         #20;
+	$display("TEST #2: atan(-23/6) ~ -75");
+        $display("angle value: %0d", angle);
+
+        // TEST #3: atan(23/-6) ~ -75
+        x = -6;
+        y = 23;
+
+        #20;
+	    @(posedge clk);
+        start = 1;
+        @(posedge clk);
+        start = 0;
+
+        wait(iCORDIC.rdy == 1);
+        #20;
+	$display("TEST #3: atan(23/-6) ~ 105");
+        $display("angle value: %0d", angle);
+
+        // TEST #4: atan(-17/-3) ~ 80
+        x = -3;
+        y = -17;
+
+	    #20;
+	    @(posedge clk);
+        start = 1;
+        @(posedge clk);
+        start = 0;
+
+        wait(iCORDIC.rdy == 1);
+        #20;
+	$display("TEST #4: atan(-17/-3) ~ 260");
         $display("angle value: %0d", angle);
         $stop;
     end

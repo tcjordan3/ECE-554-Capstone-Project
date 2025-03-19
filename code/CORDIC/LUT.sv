@@ -1,9 +1,9 @@
 module LUT #(parameter ITERATIONS = 20 )(
     input  logic [4:0] k,            // iteration index input
-    output logic [7:0] LUT_k          // angle output in degrees
+    output logic [9:0] LUT_k          // angle output in degrees
 );
 
-    logic [7:0] atan_table [0:ITERATIONS-1];    // Array to store the arctangent values in degrees
+    logic [9:0] atan_table [0:ITERATIONS-1];    // Array to store the arctangent values in degrees
     assign LUT_k = atan_table[k];               // Table output
     
     // Initialize the table with pre-calculated arctangent values in degrees

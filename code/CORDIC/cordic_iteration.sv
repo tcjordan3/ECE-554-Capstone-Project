@@ -3,12 +3,12 @@ module cordic_iteration #(parameter ITERATIONS = 20) (
     input logic rst_n,              // active-low reset
     input logic start,              // high when a new iteration begins
     input logic [4:0] k,            // iteration counter
-    input logic [7:0] LUT_k,        // angle from lookup table
+    input logic [9:0] LUT_k,        // angle from lookup table
     input logic [7:0] x,            // x coordinate
     input logic [7:0] y,            // y coordinate
-    input logic [7:0] angle_begin,  // starting angle
+    input logic [9:0] angle_begin,  // starting angle
     output logic rdy,               // high when angle fully computed
-    output logic [7:0] angle_final  // angle to compute
+    output logic [9:0] angle_final  // angle to compute
 );
 
     logic [7:0] x_k;   // x coordinate at the kth iteration
