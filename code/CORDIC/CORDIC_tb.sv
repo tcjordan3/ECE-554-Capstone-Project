@@ -1,11 +1,11 @@
 module CORDIC_tb();
     // inputs/outputs
-    logic clk;            // clock
-    logic rst_n;          // active-low reset
-    logic [7:0] x;        // x-coordinate input
-    logic [7:0] y;        // y-coordinate input
-    logic start;          // indicates beginning of approximation
-    logic [7:0] angle;    // approximated angle output
+    logic clk;                   // clock
+    logic rst_n;                 // active-low reset
+    logic signed [7:0] x;        // x-coordinate input
+    logic signed [7:0] y;        // y-coordinate input
+    logic start;                 // indicates beginning of approximation
+    logic signed [7:0] angle;    // approximated angle output
 
     // intermediate signals
     logic [4:0] k;        // iteration count
@@ -36,10 +36,26 @@ module CORDIC_tb();
         #10 rst_n = 1;
 
         // TEST #1: atan(17/3) ~ 80
-        x = 8'd3;
-        y = 8'd17;
+        x = 3;
+        y = 17;
 
-        #20 start = 1;
+	    #20;
+	    @(posedge clk);
+        start = 1;
+        @(posedge clk);
+        start = 0;
+
+        wait(iCORDIC.rdy == 1);
+        #20;
+        $display("angle value: %0d", angle);
+
+        // TEST #2: atan(-23/6) ~ -75
+        x = 6;
+        y = -23;
+
+        #20;
+	    @(posedge clk);
+        start = 1;
         @(posedge clk);
         start = 0;
 

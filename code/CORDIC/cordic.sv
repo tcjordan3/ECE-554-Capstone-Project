@@ -32,6 +32,7 @@ module cordic #(parameter ITERATIONS = 20) (
         end
     end
 
+    // module to perform iteration process
     cordic_iteration #(ITERATIONS) iCORDIC_ITERATION(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x_cordic), .start(start),
                                                     .y(y_cordic), .angle_begin(angle_begin), .rdy(rdy), .angle_final(angle_final));
 
