@@ -17,7 +17,7 @@ module cordic_iteration #(parameter ITERATIONS = 20) (
     logic add;              // high when adding; low when subtracting
     logic initialize;       // high when we need to initialize angle and coordinates
 
-    typedef enum reg [1:0] {IDLE, ITERATE, ACCUMULATE, DONE} state_t;
+    typedef enum reg [1:0] {IDLE, ITERATE, DONE} state_t;
     state_t state, nxt_state;
 
     // Next state and reset logic
@@ -54,13 +54,7 @@ module cordic_iteration #(parameter ITERATIONS = 20) (
 
                 if(k == ITERATIONS - 1) begin
                     nxt_state = DONE;
-                end else begin
-                    nxt_state = ACCUMULATE;
                 end
-            end
-
-            ACCUMULATE : begin
-                nxt_state = ITERATE;
             end
 
             DONE : begin    // indicate angle is ready before reset
