@@ -1,5 +1,5 @@
 module LUT #(parameter ITERATIONS = 20 )(
-    input  logic [4:0] k,            // iteration index input
+    input  logic [4:0] k,             // iteration index input
     output logic [9:0] LUT_k          // angle output in degrees
 );
 
