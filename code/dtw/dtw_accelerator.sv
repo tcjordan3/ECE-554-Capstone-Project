@@ -36,7 +36,7 @@ module dtw_accelerator #(
     logic skip_computation;
     logic shift_ready;
         
-    assign score = out;
+    assign score = (state == IDLE) ? 0 : out;
     assign shift_ready = ready && (!skip_computation);
 
     shift_register_dtw #(

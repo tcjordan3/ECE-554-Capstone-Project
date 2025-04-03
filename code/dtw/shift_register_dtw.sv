@@ -7,8 +7,8 @@ module shift_register_dtw(in, clk, rst_n, last, band, out, ready);
 	//
 	///////////////////////////////////////////
 	
-    parameter R = 2; // can this be made an input
-	parameter WIDTH = 8;
+    parameter R = 9; // can this be made an input
+	parameter WIDTH = 32;
 
 	input reg [WIDTH - 1 : 0] in;
     input reg clk, rst_n, ready;
