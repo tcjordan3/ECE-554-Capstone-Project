@@ -6,6 +6,7 @@ module CORDIC_tb();
     logic signed [7:0] y;        // y-coordinate input
     logic start;                 // indicates beginning of approximation
     logic signed [9:0] angle;    // approximated angle output
+    logic angle_rdy;             // indicates when angle is processed
 
     // intermediate signals
     logic [4:0] k;        // iteration count
@@ -16,7 +17,8 @@ module CORDIC_tb();
 
     LUT iLUT(.k(k), .LUT_k(LUT_k));
 
-    cordic iCORDIC(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x), .y(y), .start(start), .angle(angle));
+    cordic iCORDIC(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x), .y(y), .start(start),
+                   .angle(angle), .angle_rdy(angle_rdy));
 
     // clock generation
     initial begin
@@ -39,8 +41,8 @@ module CORDIC_tb();
         x = 3;
         y = 17;
 
-	    #20;
-	    @(posedge clk);
+	#20;
+	@(posedge clk);
         start = 1;
         @(posedge clk);
         start = 0;

@@ -6,7 +6,8 @@ module cordic #(parameter ITERATIONS = 20) (
     input logic [7:0] x,          // x coordinate
     input logic [7:0] y,          // y coordinate
     input logic start,            // high when a new iteration is beginning
-    output logic [9:0] angle      // angle to compute
+    output logic [9:0] angle,     // angle to compute
+    output logic angle_rdy	      // high when angle output is ready
 );
 
     logic [7:0] x_cordic;         // x coordinate to iterate upon
@@ -34,16 +35,19 @@ module cordic #(parameter ITERATIONS = 20) (
 
     // module to perform iteration process
     cordic_iteration #(ITERATIONS) iCORDIC_ITERATION(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x_cordic), .start(start),
-                                                    .y(y_cordic), .angle_begin(angle_begin), .rdy(rdy), .angle_final(angle_final));
+                                                     .y(y_cordic), .angle_begin(angle_begin), .rdy(rdy), .angle_final(angle_final));
 
     // Output angle when finished iterating
     always_ff @(posedge clk, negedge rst_n) begin
         if(~rst_n) begin
             angle <= '0;
+	        angle_rdy <= 0;
         end else if(rdy) begin
             angle <= angle_final;
+	        angle_rdy <= 1;
         end else begin
             angle <= '0;
+	        angle_rdy <= 0;
         end
     end
 
