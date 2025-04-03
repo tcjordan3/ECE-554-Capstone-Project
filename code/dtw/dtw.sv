@@ -1,6 +1,6 @@
 `default_nettype none 
 
-module dtw(camera, refer, score, clk, rst_n);
+module dtw(camera, refer, score, clk, rst_n, ready);
 	///////////////////////////////////////////////
 	//
 	//
@@ -11,12 +11,12 @@ module dtw(camera, refer, score, clk, rst_n);
 	parameter WIDTH = 8;
 
 	input reg [WIDTH - 1:0] camera, refer;
-	input reg rst_n, clk;
+	input reg rst_n, clk, ready;
 	output reg [WIDTH - 1:0] score;
 
 	reg [WIDTH - 1:0] last, band, out, min, accum, distance;
 	
-	shift_register sreg(.in(accum), .clk(clk), .rst_n(rst_n), .last(last), .band(band), .out(out));
+	shift_register_dtw sreg(.in(accum), .clk(clk), .rst_n(rst_n), .last(last), .band(band), .out(out), .ready(ready));
 
 	// distance
 	always_ff@(posedge clk, negedge rst_n) begin
