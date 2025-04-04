@@ -28,8 +28,8 @@ module dtw_accelerator_tb();
     ) dut (
         .clk(clk),
         .rst_n(rst_n),
-        .refer(refer),
-        .camera(camera),
+        .refer(camera), //This misnaming is on purpose
+        .camera(refer),
         .score(score),
         .ready(ready)
     );

@@ -1,7 +1,7 @@
 module dtw_accelerator #(
     parameter DATA_WIDTH = 32,         
-    parameter SIZE = 2500,             
-    parameter BAND_RADIUS = 16,        
+    parameter SIZE = 5,             
+    parameter BAND_RADIUS = 4,        
     parameter BAND_SIZE = 2*BAND_RADIUS+1 
 )(
     input wire clk,
@@ -55,7 +55,7 @@ module dtw_accelerator #(
     assign min_ab = (last < band) ? last : band;
     assign min_abc = (min_ab < out) ? min_ab : out;
     
-    assign distance_result = (inp > camera) ? (inp - camera) : (camera - inp);
+    assign distance_result = (inp > refer) ? (inp - refer) : (refer - inp);
     // assign distance_result = diff * diff; 
     
     always @(posedge clk, negedge rst_n) begin
@@ -101,7 +101,7 @@ module dtw_accelerator #(
                         
                         // At the beginning of a new row, load the x value
                         if (j == 0) begin
-                            inp <= refer;
+                            inp <= camera;
                         end
                         
                         // Update computation progress
@@ -110,6 +110,7 @@ module dtw_accelerator #(
                             if (i == SIZE-1 && j == SIZE-1) begin
                                 next_state <= DONE;
                                 compute_enable <= 0;
+                                skip_computation <= 1;
                             end
                             
                             // Update counters
