@@ -80,10 +80,10 @@ module hier #(
 
     //dtw iDTW(.clk(clk), .rst_n(rst_n), .refer(refer), .camera(camera), .score(score), .ready(angle_rdy), .done(done), .ready_refer(ready_refer), .ready_camera());
     dtw #(
-        .DATA_WIDTH(32),
-        .SIZE(7),
-        .BAND_RADIUS(2),
-        .BAND_SIZE(3)
+        .DATA_WIDTH(10),
+        .SIZE(20),
+        .BAND_RADIUS(4),
+        .BAND_SIZE(9)
     ) dut (
         .clk(clk),
         .rst_n(rst_n),
@@ -91,7 +91,7 @@ module hier #(
         .refer(refer),
         .score(score),
         .ready(angle_rdy),
-        .ready_refer(refer_ready),
+        .ready_refer(ready_refer),
         .ready_camera(camera_ready),
         .done(done)
     );
