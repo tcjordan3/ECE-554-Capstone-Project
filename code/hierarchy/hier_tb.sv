@@ -77,11 +77,11 @@ module hier_tb();
         y = 90;
         k = 1;
 
-        repeat (3) begin
+        repeat (7) begin
             x_0 = x;
             y_0 = y;
 
-            repeat (3) begin
+            repeat (7) begin
 		@(posedge clk);
 	    end
             start = 1;

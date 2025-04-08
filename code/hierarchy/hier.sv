@@ -42,6 +42,8 @@ module hier #(
     // dtw
     logic [ANGLE_DEPTH-1:0] camera;
     logic [ANGLE_DEPTH-1:0] refer;
+    logic ready_refer;
+    logic ready_camera;
 
     // flop start signal to account for processing time of label_unit
     always_ff @(posedge clk, negedge rst_n) begin
@@ -74,7 +76,23 @@ module hier #(
 	end
     end
 
-    shifter iSHIFTERREFERENCE(.clk(clk), .rst_n(rst_n), .fill(fill), .angle_in(refer_in), .angle_out(refer));
+    shifter iSHIFTERREFERENCE(.clk(clk), .rst_n(rst_n), .fill(fill), .angle_in(refer_in), .angle_out(refer), .ready(ready_refer));
 
-    dtw_accelerator iDTW(.clk(clk), .rst_n(rst_n), .refer(refer), .camera(camera), .score(score), .ready(angle_rdy), .done(done));
+    //dtw iDTW(.clk(clk), .rst_n(rst_n), .refer(refer), .camera(camera), .score(score), .ready(angle_rdy), .done(done), .ready_refer(ready_refer), .ready_camera());
+    dtw #(
+        .DATA_WIDTH(32),
+        .SIZE(7),
+        .BAND_RADIUS(2),
+        .BAND_SIZE(3)
+    ) dut (
+        .clk(clk),
+        .rst_n(rst_n),
+        .camera(camera), 
+        .refer(refer),
+        .score(score),
+        .ready(angle_rdy),
+        .ready_refer(refer_ready),
+        .ready_camera(camera_ready),
+        .done(done)
+    );
 endmodule
