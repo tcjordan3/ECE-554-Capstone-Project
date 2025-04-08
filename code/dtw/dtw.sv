@@ -1,7 +1,7 @@
 module dtw #(
-    parameter DATA_WIDTH   = 32,         
+    parameter DATA_WIDTH   = 10,         
     parameter SIZE         = 20,             
-    parameter BAND_RADIUS  = 4,        
+    parameter BAND_RADIUS  = 3,        
     parameter BAND_SIZE    = 2*BAND_RADIUS + 1
 )(
     input  wire                     clk,
@@ -116,6 +116,7 @@ module dtw #(
                 shift = 0;
                 if (ready) begin
                     ready_refer = 1;
+                end
                     if (refer_full) begin
                         skip_computation = 0;
                         next_state = INCR;
@@ -123,7 +124,6 @@ module dtw #(
                         ready_camera = 1;
                         ready_refer  = 0;
                     end
-                end
             end
 
             INCR: begin
