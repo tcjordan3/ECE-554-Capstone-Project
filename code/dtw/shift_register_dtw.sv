@@ -18,27 +18,17 @@ module shift_register_dtw(in, clk, rst_n, last, band, out, ready);
 
     always_ff @(posedge clk, negedge rst_n) begin
         if (!rst_n) begin
-            sreg[0] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[1] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[2] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[3] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[4] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[5] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[6] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[7] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
-            sreg[8] <= '0;
+            for (int i = 0; i < R; i++) begin
+                    sreg[i] <= {{4'b0000}, {(WIDTH - 4){1'b1}}};
+            end
+            //sreg[R - 1] <= '0;
 
         end
         else if (ready) begin
             sreg[0] <= in;
-            sreg[1] <= sreg[0];
-            sreg[2] <= sreg[1];
-            sreg[3] <= sreg[2];
-            sreg[4] <= sreg[3];
-            sreg[5] <= sreg[4];
-            sreg[6] <= sreg[5];
-            sreg[7] <= sreg[6];
-            sreg[8] <= sreg[7];
+            for (int i = R-1; i > 0; i--) begin
+                    sreg[i] <= sreg[i-1];
+            end
         end
     end
 	

@@ -1,6 +1,6 @@
-module FIFO
+module fifo
 #(
-  parameter DEPTH=15,
+  parameter DEPTH=20,
   parameter DATA_WIDTH=32
 )
 (
@@ -14,7 +14,7 @@ module FIFO
   output empty
 );
     logic [DATA_WIDTH-1:0] queue [DEPTH-1:0];
-    logic [3:0] index;
+    logic [10:0] index;
     logic emp, ful;
     logic [DATA_WIDTH-1:0] o_data_temp;
 
@@ -24,6 +24,14 @@ module FIFO
 	    index <= 0;
 	    emp <= 1;
 	    ful <= 0;
+	end
+	else if (wren & !full) begin
+	    queue[index] <= i_data;
+	    index <= index + 1;
+	    if (index == DEPTH - 1) begin
+	    	emp <= 0;
+    	        ful <= 1;
+	    end
 	end
 	else if (rden & !empty) begin
 	    o_data_temp <= queue[0];
@@ -37,14 +45,7 @@ module FIFO
 		emp <= 1;
 	        ful <= 0;
 	    end
-	end else if (wren & !full) begin
-	    queue[index] <= i_data;
-	    index <= index + 1;
-	    if (index == 7) begin
-	    	emp <= 0;
-    	        ful <= 1;
-	    end
-	end
+	end 
     end
     
 assign full = ful;
