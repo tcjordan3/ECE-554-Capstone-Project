@@ -1,24 +1,26 @@
-module label_unit(
+module label_unit #(
+    parameter COORD_DEPTH = 8   // bits needed to speicfy coordinate
+)(
     input clk,          // clock
     input rst_n,        // active-low reset
     input start,        // high when coordinates received
 
     // x & y input coordinates from cluster unit
-    input logic signed [7:0] x_0,
-    input logic signed [7:0] y_0,
-    input logic signed [7:0] x_1,
-    input logic signed [7:0] y_1,
-    input logic signed [7:0] x_2,
-    input logic signed [7:0] y_2,
+    input logic signed [COORD_DEPTH-1:0] x_0,
+    input logic signed [COORD_DEPTH-1:0] y_0,
+    input logic signed [COORD_DEPTH-1:0] x_1,
+    input logic signed [COORD_DEPTH-1:0] y_1,
+    input logic signed [COORD_DEPTH-1:0] x_2,
+    input logic signed [COORD_DEPTH-1:0] y_2,
     // uppermost coordinate pair
-    output logic [7:0] x_u,
-    output logic [7:0] y_u,
+    output logic [COORD_DEPTH-1:0] x_u,
+    output logic [COORD_DEPTH-1:0] y_u,
     // lower-left coordinate pair
-    output logic [7:0] x_ll,
-    output logic [7:0] y_ll,
+    output logic [COORD_DEPTH-1:0] x_ll,
+    output logic [COORD_DEPTH-1:0] y_ll,
     // lower-right coordinate pair
-    output logic [7:0] x_lr,
-    output logic [7:0] y_lr
+    output logic [COORD_DEPTH-1:0] x_lr,
+    output logic [COORD_DEPTH-1:0] y_lr
 );
 
     // registers for determining output
