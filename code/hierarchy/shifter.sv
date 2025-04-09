@@ -1,6 +1,6 @@
 module shifter #(
     parameter ANGLE_DEPTH = 10,      // bits needed to specify angle
-    parameter NUM_VALUES = 20        // number of values to store in shift register
+    parameter NUM_VALUES = 25        // number of values to store in shift register
 )(
     input logic clk,                               // clock
     input logic rst_n,                             // active-low reset

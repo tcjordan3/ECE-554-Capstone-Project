@@ -62,7 +62,7 @@ module hier_tb();
         @(posedge clk);
         fill = 1;
 
-        repeat (20) begin
+        repeat (22) begin
 	    refer = refer_val;
             #1;
 
@@ -77,11 +77,11 @@ module hier_tb();
         y = 90;
         k = 1;
 
-        repeat (20) begin
+        repeat (22) begin
             x_0 = x;
             y_0 = y;
 
-            repeat (3) begin
+            repeat (22) begin
 		@(posedge clk);
 	    end
             start = 1;
