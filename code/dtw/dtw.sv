@@ -50,7 +50,7 @@ module dtw #(
         .last(last),   
         .band(band),    
         .out(out),
-        .ready(shift_ready)
+        .ready(shift_ready & (!first))
     );
 
     shift_register #(
@@ -70,7 +70,7 @@ module dtw #(
 
     // Compute minimums and distance
     assign min_ab   = (last < band) ? last : band;
-    assign min_abc  = (min_ab < out) ? min_ab : out;
+    assign min_abc  = (min_ab == {{4'b0000}, {(DATA_WIDTH - 4){1'b1}}}) ? 0 : (min_ab < out) ? min_ab : out;
     assign distance_result = (inp > refer_out) ? (inp - refer_out) : (refer_out - inp);
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -83,7 +83,7 @@ module dtw #(
     end
 
     // DTW calculation result logic:
-    assign dtw_calc_result = (first) ? '0: 
+    assign dtw_calc_result = (first) ? 0: 
                              (skip_computation ? {{4'b0000}, {(DATA_WIDTH - 4){1'b1}}} : 
                               (min_abc + distance_result)); 
 
@@ -127,7 +127,7 @@ module dtw #(
             end
 
             INCR: begin
-                if (ready) begin
+                if (ready || ready_camera) begin
                     ready_camera = 0;
                     ready_refer  = 0;
                     compute_enable = 1;

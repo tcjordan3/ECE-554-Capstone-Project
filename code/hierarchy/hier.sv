@@ -17,7 +17,7 @@ module hier #(
     input logic signed [COORD_DEPTH-1:0] x_2,
     input logic signed [COORD_DEPTH-1:0] y_2,
 
-    output logic [ANGLE_DEPTH-1:0] score,             // score output by DTW
+    output logic [31:0] score,             // score output by DTW
     output logic done                                 // indicates score is ready
 );
 
@@ -44,6 +44,7 @@ module hier #(
     logic [ANGLE_DEPTH-1:0] refer;
     logic ready_refer;
     logic ready_camera;
+    logic dtw_ready;
 
     // flop start signal to account for processing time of label_unit
     always_ff @(posedge clk, negedge rst_n) begin
@@ -57,40 +58,56 @@ module hier #(
     end
 
     // module instantiation
-    label_unit iLABEL(.clk(clk), .rst_n(rst_n), .start(start),
+    label_unit #(
+        .COORD_DEPTH(COORD_DEPTH)
+    ) iLABEL(.clk(clk), .rst_n(rst_n), .start(start),
                       .x_0(x_0), .y_0(y_0), .x_1(x_1), .y_1(y_1), .x_2(x_2), .y_2(y_2),
                       .x_u(x_u), .y_u(y_u), .x_ll(x_ll), .y_ll(y_ll), .x_lr(x_lr), .y_lr(y_lr));
 
     counter iCOUNTER(.clk(clk), .rst_n(rst_n), .start(cordic_start), .k(k));
-    LUT iLUT(.k(k), .LUT_k(LUT_k));
+    LUT #(
+        .ITERATIONS(),
+        .ANGLE_DEPTH(ANGLE_DEPTH)
+    ) iLUT(.k(k), .LUT_k(LUT_k));
     // for now we will only test one cordic-dtw pair
-    cordic iCORDICUPPER(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x_u), .y(y_u), .start(cordic_start),
+    cordic #(
+        .COORD_DEPTH(COORD_DEPTH),
+        .ANGLE_DEPTH(ANGLE_DEPTH),
+        .ITERATIONS()
+    ) iCORDICUPPER(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x_u), .y(y_u), .start(cordic_start),
                    .angle(angle_cordic), .angle_rdy(angle_rdy));
 
-    // buffer cordic output
-    always @(posedge clk, negedge rst_n) begin
-	if(~rst_n) begin
-	    camera <= '0;
-	end else if(angle_rdy) begin
-	    camera <= angle_cordic;
-	end
-    end
+    // // buffer cordic output
+    // always @(posedge clk, negedge rst_n) begin
+	// if(~rst_n) begin
+	//     camera <= '0;
+	// end else if(angle_rdy && camera_ready) begin
+	//     camera <= angle_cordic;
+	// end
+    // end
 
-    shifter iSHIFTERREFERENCE(.clk(clk), .rst_n(rst_n), .fill(fill), .angle_in(refer_in), .angle_out(refer), .ready(ready_refer));
+    shifter  #(
+        .NUM_VALUES(),
+        .ANGLE_DEPTH(ANGLE_DEPTH)
+    ) iSHIFTERREFERENCE (.clk(clk), .rst_n(rst_n), .fill(fill), .angle_in(refer_in), .angle_out(refer), .ready(ready_refer));
+    fifo  #(
+        .DEPTH(22),
+        .DATA_WIDTH(32)
+    ) ififocamera (.clk(clk), .rst_n(rst_n), .rden(camera_ready), .wren(angle_rdy), .i_data(angle_cordic), .o_data(camera), .full(), .empty(dtw_ready));
 
     //dtw iDTW(.clk(clk), .rst_n(rst_n), .refer(refer), .camera(camera), .score(score), .ready(angle_rdy), .done(done), .ready_refer(ready_refer), .ready_camera());
     dtw #(
-        .DATA_WIDTH(10),
-        .SIZE(20),
+        .DATA_WIDTH(32),
+        .SIZE(22),
         .BAND_RADIUS(4),
-        .BAND_SIZE(9)
+        .BAND_SIZE(4)
     ) dut (
         .clk(clk),
         .rst_n(rst_n),
         .camera(camera), 
         .refer(refer),
         .score(score),
-        .ready(angle_rdy),
+        .ready(!dtw_ready),
         .ready_refer(ready_refer),
         .ready_camera(camera_ready),
         .done(done)
