@@ -3,6 +3,7 @@ module happy_feet_tb();
     parameter IMG_WIDTH = 640;   // width of image
     parameter IMG_HEIGHT = 480;  // height of image
     parameter ANGLE_DEPTH = 10;  // bits needed to specify angle
+    parameter NUM_FRAMES = 22;   // number of frames to process for DTW to output a score
 
     logic clk;      // clock
     logic rst_n;    // active-low reset
@@ -43,9 +44,16 @@ module happy_feet_tb();
     localparam color_ref_g2 = 950;
     localparam color_ref_b2 = 1000;
 
-    // Expected positions for test verification
-    logic [$clog2(IMG_WIDTH)-1:0] expected_x0, expected_x1, expected_x2;
-    logic [$clog2(IMG_HEIGHT)-1:0] expected_y0, expected_y1, expected_y2;
+    // Positions for each frame to simulate motion
+    logic [$clog2(IMG_WIDTH)-1:0] positions_x0[NUM_FRAMES];
+    logic [$clog2(IMG_HEIGHT)-1:0] positions_y0[NUM_FRAMES];
+    logic [$clog2(IMG_WIDTH)-1:0] positions_x1[NUM_FRAMES];
+    logic [$clog2(IMG_HEIGHT)-1:0] positions_y1[NUM_FRAMES];
+    logic [$clog2(IMG_WIDTH)-1:0] positions_x2[NUM_FRAMES];
+    logic [$clog2(IMG_HEIGHT)-1:0] positions_y2[NUM_FRAMES];
+
+    // Current frame being processed
+    int current_frame;
 
     // module instantiation
     happy_feet #(
@@ -79,22 +87,21 @@ module happy_feet_tb();
     initial begin
         $display("=== Happy Feet Integration Test Starting ===");
         
-        forever begin
-            @(posedge done);
-            $display("Test completed with score: %d", score);
-            
-            // Wait some cycles to ensure stability
-            repeat(5) @(posedge clk);
-            
-            // Exit after test completes
-            $finish;
-        end
+        @(posedge done);
+        $display("Test completed with final score: %d", score);
+        
+        // Wait some cycles to ensure stability
+        repeat(5) @(posedge clk);
+        
+        // Exit after test completes
+        $stop;
     end
 
     // Main test sequence
     initial begin
-        // Initialize signals
+        // Initialize signals and frame positions
         init_signals();
+        init_frame_positions();
         
         // Apply reset
         apply_reset();
@@ -103,23 +110,36 @@ module happy_feet_tb();
         
         // Initialize reference angles (following hier_tb approach)
         refer_val_u = 45;   // Starting angle
-        refer_inc_u = 10;   // Increment
+        refer_inc_u = 1;    // Increment
         
         refer_val_ll = 35;  // Starting angle
-        refer_inc_ll = 5;   // Increment
+        refer_inc_ll = 2;   // Increment
         
         refer_val_lr = 25;  // Starting angle
-        refer_inc_lr = 8;   // Increment
+        refer_inc_lr = 3;   // Increment
         
         // Load reference angles
         load_reference_angles();
         
-        $display("Step 2: Processing image data");
+        $display("Step 2: Processing %0d image frames to simulate motion", NUM_FRAMES);
         
-        // Process an image frame with known clusters
-        process_image_frame();
+        // Process all frames sequentially
+        for (current_frame = 0; current_frame < NUM_FRAMES; current_frame++) begin
+            process_image_frame(current_frame);
+            
+            if (current_frame < NUM_FRAMES-1) begin
+                // After each frame except the last, wait for start signal and immediately start next frame
+                @(posedge iDUT.start);
+                $display("  Start signal detected for frame %0d, immediately beginning next frame", current_frame);
+            end else begin
+                // For the last frame, wait for the CORDIC angles to be ready
+                // This ensures the final (22nd) angle is properly processed
+                wait(iDUT.angle_rdy_u && iDUT.angle_rdy_ll && iDUT.angle_rdy_lr);
+                $display("  Final frame %0d angles processed, waiting for DTW computation", current_frame);
+            end
+        end
         
-        // Wait for processing to complete
+        // Wait for final processing to complete
         wait(done);
         
         $display("=== Happy Feet Integration Test Complete ===");
@@ -138,6 +158,39 @@ module happy_feet_tb();
         refer_in_u = 0;
         refer_in_ll = 0;
         refer_in_lr = 0;
+        current_frame = 0;
+    endtask
+
+    // Initialize positions for each frame to simulate motion
+    task init_frame_positions();
+        // Base position
+        automatic int base_x0 = IMG_WIDTH/4;
+        automatic int base_y0 = IMG_HEIGHT/4;
+        automatic int base_x1 = 3*IMG_WIDTH/4;
+        automatic int base_y1 = IMG_HEIGHT/4; 
+        automatic int base_x2 = IMG_WIDTH/2;
+        automatic int base_y2 = 3*IMG_HEIGHT/4;
+        
+        // Set initial positions
+        positions_x0[0] = base_x0;
+        positions_y0[0] = base_y0;
+        positions_x1[0] = base_x1;
+        positions_y1[0] = base_y1;
+        positions_x2[0] = base_x2;
+        positions_y2[0] = base_y2;
+        
+        // Generate motion pattern for all frames
+        for (int i = 1; i < NUM_FRAMES; i++) begin
+            // Simple motion pattern: circular movement
+            positions_x0[i] = base_x0 + $rtoi(15.0 * $cos(i * 2 * 3.14159 / 22));
+            positions_y0[i] = base_y0 + $rtoi(15.0 * $sin(i * 2 * 3.14159 / 22));
+            
+            positions_x1[i] = base_x1 + $rtoi(12.0 * $cos(i * 2 * 3.14159 / 22 + 0.5));
+            positions_y1[i] = base_y1 + $rtoi(12.0 * $sin(i * 2 * 3.14159 / 22 + 0.5));
+            
+            positions_x2[i] = base_x2 + $rtoi(10.0 * $cos(i * 2 * 3.14159 / 22 + 1.0));
+            positions_y2[i] = base_y2 + $rtoi(10.0 * $sin(i * 2 * 3.14159 / 22 + 1.0));
+        end
     endtask
 
     // Apply reset sequence
@@ -180,8 +233,8 @@ module happy_feet_tb();
         $display("Reference angles loaded");
     endtask
 
-    // Process full image frame
-    task process_image_frame();
+    // Process a single image frame
+    task process_image_frame(int frame_idx);
         automatic int color0_count = 0;
         automatic int color1_count = 0;
         automatic int color2_count = 0;
@@ -191,31 +244,43 @@ module happy_feet_tb();
         automatic int y_sum1 = 0;
         automatic int x_sum2 = 0;
         automatic int y_sum2 = 0;
-        automatic int avg_x0, avg_y0, avg_x1, avg_y1, avg_x2, avg_y2;
+
+        // Calculate centroids for verification
+        automatic int avg_x0 = (color0_count > 0) ? x_sum0/color0_count : 0;
+        automatic int avg_y0 = (color0_count > 0) ? y_sum0/color0_count : 0;
+        automatic int avg_x1 = (color1_count > 0) ? x_sum1/color1_count : 0;
+        automatic int avg_y1 = (color1_count > 0) ? y_sum1/color1_count : 0;
+        automatic int avg_x2 = (color2_count > 0) ? x_sum2/color2_count : 0;
+        automatic int avg_y2 = (color2_count > 0) ? y_sum2/color2_count : 0;
         
-        // Define cluster positions (discrete clusters like cluster_tb)
-        expected_x0 = IMG_WIDTH/4;
-        expected_y0 = IMG_HEIGHT/4;
-        expected_x1 = 3*IMG_WIDTH/4;
-        expected_y1 = IMG_HEIGHT/4;
-        expected_x2 = IMG_WIDTH/2;
-        expected_y2 = 3*IMG_HEIGHT/4;
+        // Get current positions for this frame
+        automatic logic [$clog2(IMG_WIDTH)-1:0] current_x0 = positions_x0[frame_idx];
+        automatic logic [$clog2(IMG_HEIGHT)-1:0] current_y0 = positions_y0[frame_idx];
+        automatic logic [$clog2(IMG_WIDTH)-1:0] current_x1 = positions_x1[frame_idx];
+        automatic logic [$clog2(IMG_HEIGHT)-1:0] current_y1 = positions_y1[frame_idx];
+        automatic logic [$clog2(IMG_WIDTH)-1:0] current_x2 = positions_x2[frame_idx];
+        automatic logic [$clog2(IMG_HEIGHT)-1:0] current_y2 = positions_y2[frame_idx];
         
-        $display("Processing image with clusters at:");
-        $display("  Color 0: (%0d, %0d)", expected_x0, expected_y0);
-        $display("  Color 1: (%0d, %0d)", expected_x1, expected_y1);
-        $display("  Color 2: (%0d, %0d)", expected_x2, expected_y2);
+        $display("Processing frame %0d of %0d", frame_idx+1, NUM_FRAMES);
+        $display("  Color 0: (%0d, %0d)", current_x0, current_y0);
+        $display("  Color 1: (%0d, %0d)", current_x1, current_y1);
+        $display("  Color 2: (%0d, %0d)", current_x2, current_y2);
         
-        // Process entire frame
+        // Reset x,y to (0,0) for the start of each frame
+        x = 0;
+        y = 0;
+        pixel_valid = 1;
+        @(posedge clk);
+        
+        // Process entire frame pixel by pixel
         for (int y_pos = 0; y_pos < IMG_HEIGHT; y_pos++) begin
             for (int x_pos = 0; x_pos < IMG_WIDTH; x_pos++) begin
                 x = x_pos;
                 y = y_pos;
-                pixel_valid = 1;
                 
-                // Color 0: 4x4 grid at top-left quarter
-                if (x_pos >= expected_x0-2 && x_pos <= expected_x0+1 && 
-                    y_pos >= expected_y0-2 && y_pos <= expected_y0+1) begin
+                // Color 0: 4x4 grid at current upper position
+                if (x_pos >= current_x0-2 && x_pos <= current_x0+1 && 
+                    y_pos >= current_y0-2 && y_pos <= current_y0+1) begin
                     pixel_r = color_ref_r0;
                     pixel_g = color_ref_g0;
                     pixel_b = color_ref_b0;
@@ -223,9 +288,9 @@ module happy_feet_tb();
                     x_sum0 += x_pos;
                     y_sum0 += y_pos;
                 end
-                // Color 1: 4x4 grid at top-right quarter
-                else if (x_pos >= expected_x1-2 && x_pos <= expected_x1+1 && 
-                         y_pos >= expected_y1-2 && y_pos <= expected_y1+1) begin
+                // Color 1: 4x4 grid at current lower left position
+                else if (x_pos >= current_x1-2 && x_pos <= current_x1+1 && 
+                         y_pos >= current_y1-2 && y_pos <= current_y1+1) begin
                     pixel_r = color_ref_r1;
                     pixel_g = color_ref_g1;
                     pixel_b = color_ref_b1;
@@ -233,9 +298,9 @@ module happy_feet_tb();
                     x_sum1 += x_pos;
                     y_sum1 += y_pos;
                 end
-                // Color 2: 4x4 grid at bottom-center
-                else if (x_pos >= expected_x2-2 && x_pos <= expected_x2+1 && 
-                         y_pos >= expected_y2-2 && y_pos <= expected_y2+1) begin
+                // Color 2: 4x4 grid at current lower right position
+                else if (x_pos >= current_x2-2 && x_pos <= current_x2+1 && 
+                         y_pos >= current_y2-2 && y_pos <= current_y2+1) begin
                     pixel_r = color_ref_r2;
                     pixel_g = color_ref_g2;
                     pixel_b = color_ref_b2;
@@ -252,73 +317,63 @@ module happy_feet_tb();
                 
                 @(posedge clk);
                 
-                // Log progress during processing
-                if (x_pos == 0 && y_pos % 100 == 0) begin
-                    $display("Processing row %0d...", y_pos);
+                // Log progress sparingly
+                if (x_pos == 0 && y_pos % 120 == 0) begin
+                    $display("  Processing row %0d...", y_pos);
                 end
             end
         end
         
-        // Calculate expected centroids
-        avg_x0 = (color0_count > 0) ? x_sum0/color0_count : 0;
-        avg_y0 = (color0_count > 0) ? y_sum0/color0_count : 0;
-        avg_x1 = (color1_count > 0) ? x_sum1/color1_count : 0;
-        avg_y1 = (color1_count > 0) ? y_sum1/color1_count : 0;
-        avg_x2 = (color2_count > 0) ? x_sum2/color2_count : 0;
-        avg_y2 = (color2_count > 0) ? y_sum2/color2_count : 0;
-        
-        // End of frame
-        x = IMG_WIDTH-1;
-        y = IMG_HEIGHT-1;
-        @(posedge clk);
-        pixel_valid = 0;
-        
-        $display("Image processing complete");
-        $display("Color 0: Found %0d pixels, expected centroid (%0d, %0d)", color0_count, avg_x0, avg_y0);
-        $display("Color 1: Found %0d pixels, expected centroid (%0d, %0d)", color1_count, avg_x1, avg_y1);
-        $display("Color 2: Found %0d pixels, expected centroid (%0d, %0d)", color2_count, avg_x2, avg_y2);
+        $display("Frame %0d complete - centroids: (%0d,%0d), (%0d,%0d), (%0d,%0d)", 
+            frame_idx, avg_x0, avg_y0, avg_x1, avg_y1, avg_x2, avg_y2);
+
+        // Reset x and y to prevent lingering 'start' signal on last frame
+        x = 0;
+        y = 0;
+        // @(posedge clk);
     endtask
 
     // Monitor and display internal signals during execution
     initial begin
-        automatic int display_count = 0;
+        int frame_monitor = -1;
+        logic previous_start = 0;
         
-        // Monitor when clusters are detected
         forever begin
             @(posedge clk);
-            if (iDUT.start && display_count == 0) begin
-                display_count++;
-                $display("Clusters detected:");
-                $display("  Cluster 0: (%0d, %0d)", iDUT.x_0, iDUT.y_0);
-                $display("  Cluster 1: (%0d, %0d)", iDUT.x_1, iDUT.y_1);
-                $display("  Cluster 2: (%0d, %0d)", iDUT.x_2, iDUT.y_2);
+            
+            // Detect rising edge of start signal to track frame boundaries
+            if (iDUT.start && !previous_start) begin
+                frame_monitor++;
+                $display("\nFrame %0d processed, detected start signal:", frame_monitor);
+                $display("  Clusters detected:");
+                $display("    Cluster 0: (%0d, %0d)", iDUT.x_0, iDUT.y_0);
+                $display("    Cluster 1: (%0d, %0d)", iDUT.x_1, iDUT.y_1);
+                $display("    Cluster 2: (%0d, %0d)", iDUT.x_2, iDUT.y_2);
+            end
+            previous_start = iDUT.start;
+            
+            // Monitor when start_flopped signal is asserted
+            if (iDUT.start_flopped && !iDUT.start) begin
+                $display("  Label unit identified:");
+                $display("    Upper: (%0d, %0d)", iDUT.x_u, iDUT.y_u);
+                $display("    Lower Left: (%0d, %0d)", iDUT.x_ll, iDUT.y_ll);
+                $display("    Lower Right: (%0d, %0d)", iDUT.x_lr, iDUT.y_lr);
             end
             
-            // Monitor when label unit completes
-            if (iDUT.cordic_start && display_count == 1) begin
-                display_count++;
-                $display("Label unit identified:");
-                $display("  Upper: (%0d, %0d)", iDUT.x_u, iDUT.y_u);
-                $display("  Lower Left: (%0d, %0d)", iDUT.x_ll, iDUT.y_ll);
-                $display("  Lower Right: (%0d, %0d)", iDUT.x_lr, iDUT.y_lr);
+            // Monitor angles when they're all ready
+            if (iDUT.angle_rdy_u && iDUT.angle_rdy_ll && iDUT.angle_rdy_lr) begin
+                $display("  CORDIC angles:");
+                $display("    Upper: %0d", iDUT.angle_u);
+                $display("    Lower Left: %0d", iDUT.angle_ll);
+                $display("    Lower Right: %0d", iDUT.angle_lr);
             end
             
-            // Monitor when angles are calculated
-            if (iDUT.angle_rdy_u && iDUT.angle_rdy_ll && iDUT.angle_rdy_lr && display_count == 2) begin
-                display_count++;
-                $display("CORDIC angles calculated:");
-                $display("  Upper angle: %0d", iDUT.angle_u);
-                $display("  Lower Left angle: %0d", iDUT.angle_ll);
-                $display("  Lower Right angle: %0d", iDUT.angle_lr);
-            end
-            
-            // Monitor DTW scores
-            if (iDUT.done_u && iDUT.done_ll && iDUT.done_lr && display_count == 3) begin
-                display_count++;
-                $display("DTW calculations complete:");
-                $display("  Upper score: %0d", iDUT.score_u);
-                $display("  Lower Left score: %0d", iDUT.score_ll);
-                $display("  Lower Right score: %0d", iDUT.score_lr);
+            // Monitor DTW scores when they're all available
+            if (iDUT.done_u && iDUT.done_ll && iDUT.done_lr) begin
+                $display("  DTW scores:");
+                $display("    Upper: %0d", iDUT.score_u);
+                $display("    Lower Left: %0d", iDUT.score_ll);
+                $display("    Lower Right: %0d", iDUT.score_lr);
             end
         end
     end

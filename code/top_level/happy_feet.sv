@@ -122,7 +122,7 @@ module happy_feet #(
      .i_data(angle_u), .o_data(camera_u), .full(full_u), .empty(dtw_ready_u));
 
     dtw #(
-        .DATA_WIDTH(32),
+        .DATA_WIDTH(ANGLE_DEPTH),
         .SIZE(22),
         .BAND_RADIUS(4),
         .BAND_SIZE(4)
@@ -149,7 +149,7 @@ module happy_feet #(
      .i_data(angle_ll), .o_data(camera_ll), .full(full_ll), .empty(dtw_ready_ll));
 
     dtw #(
-        .DATA_WIDTH(32),
+        .DATA_WIDTH(ANGLE_DEPTH),
         .SIZE(22),
         .BAND_RADIUS(4),
         .BAND_SIZE(4)
@@ -176,7 +176,7 @@ module happy_feet #(
      .i_data(angle_lr), .o_data(camera_lr), .full(full_lr), .empty(dtw_ready_lr));
 
     dtw #(
-        .DATA_WIDTH(32),
+        .DATA_WIDTH(ANGLE_DEPTH),
         .SIZE(22),
         .BAND_RADIUS(4),
         .BAND_SIZE(4)
