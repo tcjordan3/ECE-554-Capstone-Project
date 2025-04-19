@@ -1,8 +1,8 @@
 module dtw #(
     parameter DATA_WIDTH   = 10,         
     parameter SIZE         = 20,             
-    parameter BAND_RADIUS  = 3,        
-    parameter BAND_SIZE    = 2*BAND_RADIUS + 1
+    parameter BAND_RADIUS  = 4,        
+    parameter BAND_SIZE    = 4
 )(
     input  wire                     clk,
     input  wire                     rst_n, 
@@ -25,7 +25,6 @@ module dtw #(
     logic [DATA_WIDTH-1:0] min_ab, min_abc;
     logic [DATA_WIDTH-1:0] distance_result, refer_out;
 
-    logic compute_enable;
     logic skip_computation;
     logic first;
     logic read_refer;
@@ -33,6 +32,18 @@ module dtw #(
     logic inc_done;
     logic write_fifo;
     logic shift;
+    logic shift_ready;
+
+    logic nxt_first;
+    logic nxt_skip_computation;
+    logic nxt_read_refer;
+    logic nxt_ready_camera;
+    logic nxt_ready_refer;
+    logic nxt_done;
+    logic [DATA_WIDTH-1:0] nxt_score;
+    logic nxt_inc_done;
+    logic nxt_shift;
+    logic [DATA_WIDTH-1:0] nxt_inp;
 
 
     logic [$clog2(SIZE):0] next_i, next_j, next_count;
@@ -70,7 +81,7 @@ module dtw #(
 
     // Compute minimums and distance
     assign min_ab   = (last < band) ? last : band;
-    assign min_abc  = (min_ab == {{4'b0000}, {(DATA_WIDTH - 4){1'b1}}}) ? 0 : (min_ab < out) ? min_ab : out;
+    assign min_abc  = (min_ab == {{4'b0000}, {(DATA_WIDTH - 4){1'b1}}}) ? '0 : (min_ab < out) ? min_ab : out;
     assign distance_result = (inp > refer_out) ? (inp - refer_out) : (refer_out - inp);
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -83,21 +94,30 @@ module dtw #(
     end
 
     // DTW calculation result logic:
-    assign dtw_calc_result = (first) ? 0: 
+    assign dtw_calc_result = (first) ? '0: 
                              (skip_computation ? {{4'b0000}, {(DATA_WIDTH - 4){1'b1}}} : 
                               (min_abc + distance_result)); 
 
 
-    typedef enum logic [1:0] {IDLE, INCR, COMPUTE, DONE} state_t;
+    typedef enum  reg[1:0] {IDLE, INCR, COMPUTE, DONE} state_t;
     state_t state, next_state;
 
 
     always_comb begin
-
         next_state        = state;
         next_i            = i;
         next_j            = j;
         next_count        = count;
+        first = nxt_first;
+        skip_computation = nxt_skip_computation;
+        read_refer = nxt_read_refer;
+        ready_camera =  nxt_ready_camera;
+        ready_refer = nxt_ready_refer;
+        done = nxt_done;
+        score = nxt_score;
+        inc_done = nxt_inc_done;
+        shift = nxt_shift;
+        inp = nxt_inp;
 
         case (state)
             IDLE: begin
@@ -105,7 +125,6 @@ module dtw #(
                 next_j            = 0;
                 next_count        = 0;
                 first        = 1;
-                compute_enable = 0;
                 skip_computation = 0;
                 read_refer   = 0;
                 ready_camera = 0;
@@ -130,7 +149,6 @@ module dtw #(
                 if (ready || ready_camera) begin
                     ready_camera = 0;
                     ready_refer  = 0;
-                    compute_enable = 1;
                     first = 0;
                     shift = 0;
                     if ((i != 0) || (j != 0))
@@ -171,20 +189,19 @@ module dtw #(
                     shift = 1;
                     next_j = j + 1;
                         next_i = i + 1;
-                        next_count = 0;
+                        next_count = '0;
                         next_state = INCR;
                         ready_camera = 1;
                 end
                 else if (count == (BAND_RADIUS -1) || ((i < BAND_RADIUS - 1) && (count == (i + 1)))) begin
                     if(inc_done) begin
                         next_state = DONE;
-                        compute_enable = 0;
                         skip_computation = 1;
                     end
                     else begin
                         next_j = j + 1;
                         next_i = i + 1;
-                        next_count = 0;
+                        next_count = '0;
                         next_state = INCR;
                         ready_camera = 1;
                     end
@@ -196,7 +213,6 @@ module dtw #(
 
             DONE: begin
                 done = 1;
-                compute_enable = 0;
                 // Remain in DONE for one cycle, then return to IDLE
                 next_state = IDLE;
                 score = out;
@@ -208,18 +224,38 @@ module dtw #(
         endcase
     end
 
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk, negedge rst_n) begin
         if (!rst_n) begin
             state           <= IDLE;
             i               <= 0;
             j               <= 0;
             count           <= 0;
+            nxt_first <= 0;
+            nxt_skip_computation <= 0;
+            nxt_read_refer <= 0;
+            nxt_ready_camera <= 0;
+            nxt_ready_refer <= 0;
+            nxt_done <= 0;
+            nxt_score <= 0;
+            nxt_inc_done <= 0;
+            nxt_shift <= 0;
+            nxt_inp <= 0;
         end
         else begin
             state           <= next_state;
             i               <= next_i;
             j               <= next_j;
             count           <= next_count;
+            nxt_first <= first;
+            nxt_skip_computation <= skip_computation;
+            nxt_read_refer <= read_refer;
+            nxt_ready_camera <= ready_camera;
+            nxt_ready_refer <= ready_refer;
+            nxt_done <= done;
+            nxt_score <= score;
+            nxt_inc_done <= inc_done;
+            nxt_shift <= shift;
+            nxt_inp <= inp;
         end
     end
 
