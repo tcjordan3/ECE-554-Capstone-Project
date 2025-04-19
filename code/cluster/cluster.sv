@@ -130,7 +130,7 @@ module cluster #(
         end else if(k_color_2 == 5'd16) begin
             // done sampling for color 2
         end else if(match_2) begin
-            k_color_2 <= k_color_0 + 1;
+            k_color_2 <= k_color_2 + 1;
             sum_x_2 <= sum_x_2 + x;
             sum_y_2 <= sum_y_2 + y;
         end
