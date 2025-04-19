@@ -1,12 +1,17 @@
 module CORDIC_tb();
+
+        localparam IMG_WIDTH = 640;                     // width of image
+        localparam IMG_HEIGHT = 480;                    // height of image
+        localparam COORD_DEPTH = $clog2(IMG_WIDTH);     // bits needed to specify coordinate
+
     // inputs/outputs
-    logic clk;                   // clock
-    logic rst_n;                 // active-low reset
-    logic signed [7:0] x;        // x-coordinate input
-    logic signed [7:0] y;        // y-coordinate input
-    logic start;                 // indicates beginning of approximation
-    logic signed [9:0] angle;    // approximated angle output
-    logic angle_rdy;             // indicates when angle is processed
+    logic clk;                                 // clock
+    logic rst_n;                               // active-low reset
+    logic unsigned [COORD_DEPTH-1:0] x;        // x-coordinate input
+    logic unsigned [COORD_DEPTH-1:0] y;        // y-coordinate input
+    logic start;                               // indicates beginning of approximation
+    logic signed [9:0] angle;                  // approximated angle output
+    logic angle_rdy;                           // indicates when angle is processed
 
     // intermediate signals
     logic [4:0] k;        // iteration count
@@ -17,7 +22,7 @@ module CORDIC_tb();
 
     LUT iLUT(.k(k), .LUT_k(LUT_k));
 
-    cordic iCORDIC(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x), .y(y), .start(start),
+    cordic #(.COORD_DEPTH(COORD_DEPTH)) iCORDIC(.clk(clk), .rst_n(rst_n), .k(k), .LUT_k(LUT_k), .x(x), .y(y), .start(start),
                    .angle(angle), .angle_rdy(angle_rdy));
 
     // clock generation
@@ -37,9 +42,9 @@ module CORDIC_tb();
         #10 rst_n = 0;
         #10 rst_n = 1;
 
-        // TEST #1: atan(17/3) ~ 80
-        x = 3;
-        y = 17;
+        // TEST #1: atan(129/484) ~ 15 
+        x = 484;
+        y = 129;
 
 	#20;
 	@(posedge clk);
@@ -49,7 +54,7 @@ module CORDIC_tb();
 
         wait(iCORDIC.rdy == 1);
         #20;
-	$display("TEST #1: atan(17/3) ~ 80");
+	$display("TEST #1: atan(129/484) ~ 15");
         $display("angle value: %0d", angle);
 
         // TEST #2: atan(-23/6) ~ -75

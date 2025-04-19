@@ -50,7 +50,7 @@ module cordic_iteration #(
             end
 
             ITERATE : begin // Determine if current iteration requires addition or subtraction
-                if(y_k[7] == 0) begin
+                if(y_k[COORD_DEPTH-1] == 0) begin
                     add = 1;
                 end else begin
 		            add = 0;
