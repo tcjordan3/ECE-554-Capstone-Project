@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capstone Project</title>
+    <title>Happy Feet - ECE554 Capstone Project</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">ECE554-SP25 Capstone Project</a>
+            <a class="navbar-brand" href="index.html">Happy Feet: ECE554 Capstone</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,24 +29,44 @@
         </div>
     </nav>
 
-    <!-- Customizable Header Section -->
+    <!-- Header Section -->
     <header class="header-image" data-background="image/Just-Dance-2020-Feature.jpg">
         <div class="header-overlay">
-            <h1 class="header-title">Just Dance</h1>
-            <p class="header-subtitle"></p>
+            <h1 class="header-title">Happy Feet</h1>
+            <p class="header-subtitle">An Interactive Dance Game Powered by FPGA</p>
         </div>
     </header>
 
-    <!-- Main Content Section -->
+    <!-- Main Content -->
     <div class="container mt-4">
         <section id="summary">
-            <h2>Project Summary</h2>
-            <p>This is a dance game similar to Just Dance, where players replicate dance moves, and their performance is based on accuracy.  We utilize accelerators and algorithms like DTW and Cordic to evaluate and score the dancers movements.</p>
-            <p><a href="https://github.com/tcjordan3/ECE-554-Capstone-Project" target="_blank">GitHub Repository</a></p>
+            <h2>About the Project</h2>
+            <p><strong>Welcome to Happy Feet</strong> — a high-energy dance game that blends music, motion, and hardware engineering into one unforgettable experience!</p>
+            
+            <p>Inspired by the iconic <em>Just Dance</em>, our game challenges players to follow on-screen choreography while wearing color-coded gloves and a hat. But here's the twist — your moves are tracked and scored in real-time by a custom-built system running on an FPGA!</p>
+            
+            <h4>🎮 How to Play</h4>
+            <ul>
+                <li>Suit up with the Happy Feet Hat and Gloves</li>
+                <li>Press a button on the FPGA board to start the game</li>
+                <li>Dance your heart out!</li>
+                <li>Get scored instantly based on your accuracy!</li>
+            </ul>
+        
+            <h4>💡 What Makes It Cool</h4>
+            <ul>
+                <li><strong>Custom Hardware:</strong> Built from the ground up on a DE1-SoC FPGA board</li>
+                <li><strong>Real-Time Motion Tracking:</strong> Using a tiny camera and smart color segmentation</li>
+                <li><strong>Smarter Scoring:</strong> Advanced algorithms like CORDIC and a supercharged Dynamic Time Warping (DTW) score your dance with high precision</li>
+            </ul>
+        
+            <p>This was more than just a capstone — it was a challenge to see if we could bring an interactive dance game to life using minimal hardware. Whether you're into dancing, computer architecture, or just want to have some fun while hitting your step count, Happy Feet brings it all together.</p>
+            <p><a href="https://github.com/tcjordan3/ECE-554-Capstone-Project" target="_blank">🔗 Check out the full project on GitHub</a></p>
         </section>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script> <!-- Custom JavaScript to set the header image -->
+    <script src="script.js"></script>
 </body>
 </html>
