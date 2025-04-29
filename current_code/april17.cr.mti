@@ -1,0 +1,15 @@
+C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/code/hierarchy/score_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/code/hierarchy/score_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module score_tb
+
+Top level modules:
+	score_tb
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/code/hierarchy/score.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/code/hierarchy/score.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module score
+
+Top level modules:
+	score
+
+} {} {}}

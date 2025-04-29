@@ -1,0 +1,20 @@
+module game_control (
+    input clk, 
+    input rst_n,
+    input start_sig,
+    input end_sig,
+    output reg state  // Declared as reg since it's updated in an always block
+);
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n)
+        state <= 1'b0;            // Asynchronous reset: initialize state to 0 (game off)
+    else if (end_sig)
+        state <= 1'b0;            // End signal takes precedence: set state to 0 (game off)
+    else if (start_sig)
+        state <= 1'b1;            // Start signal: set state to 1 (game on)
+    // If no condition is active, state remains unchanged.
+end
+
+endmodule
+

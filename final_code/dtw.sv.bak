@@ -1,0 +1,219 @@
+// dtw.sv
+`timescale 1ns/1ps
+`default_nettype none
+
+module dtw #(
+    parameter DATA_WIDTH   = 10,
+    parameter SIZE         = 602,
+    parameter BAND_RADIUS  = 4,
+    parameter BAND_SIZE    = 2*BAND_RADIUS+1
+)(
+    input  wire                     clk,
+    input  wire                     rst_n,
+    input  wire [DATA_WIDTH-1:0]    refer,
+    input  wire [DATA_WIDTH-1:0]    camera,
+    output reg  [DATA_WIDTH-1:0]    score,
+    output reg                      ready_refer,
+    output reg                      ready_camera,
+    input  wire                     ready,
+    output reg                      done
+);
+
+    // --------------------------------------------------------------------------
+    // Local widths
+    // --------------------------------------------------------------------------
+    localparam ADDR_WIDTH = $clog2(SIZE);
+
+    // --------------------------------------------------------------------------
+    // State, indexes, and counters
+    // --------------------------------------------------------------------------
+    typedef enum logic [1:0] {IDLE, INCR, COMPUTE, DONE} state_t;
+    state_t              state,      next_state;
+    logic [ADDR_WIDTH:0] i,          next_i;
+    logic [ADDR_WIDTH:0] j,          next_j;
+    logic [ADDR_WIDTH:0] count,      next_count;
+
+    // --------------------------------------------------------------------------
+    // Internal signals
+    // --------------------------------------------------------------------------
+    logic                         shift_ready;
+    logic                         refer_full;
+    logic [DATA_WIDTH-1:0]        last, band, out;
+    logic [DATA_WIDTH-1:0]        dtw_calc_result, min_ab, min_abc, distance_result, refer_out;
+    logic                         first,            next_first;
+    logic                         compute_enable,   next_compute_enable;
+    logic                         skip_computation, next_skip_computation;
+    logic                         read_refer,       next_read_refer;
+    logic                         inc_done,         next_inc_done;
+    logic                         shift,            next_shift;
+
+    // Next-output regs
+    logic [DATA_WIDTH-1:0] next_score;
+    logic                  next_ready_refer;
+    logic                  next_ready_camera;
+    logic                  next_done;
+
+    // Input alias
+    wire [DATA_WIDTH-1:0] inp = camera;
+
+    // --------------------------------------------------------------------------
+    // Shift register for DTW
+    // --------------------------------------------------------------------------
+    shift_register_dtw #(
+        .WIDTH(DATA_WIDTH),
+        .R    (BAND_SIZE)
+    ) shift_reg (
+        .in    (dtw_calc_result),
+        .clk   (clk),
+        .rst_n (rst_n),
+        .last  (last),
+        .band  (band),
+        .out   (out),
+        .ready (shift_ready && !first)
+    );
+
+    // FIFO for reference sequence
+    shift_register #(
+        .DEPTH      (BAND_RADIUS),
+        .DATA_WIDTH (DATA_WIDTH)
+    ) fifo (
+        .clk         (clk),
+        .rst_n       (rst_n),
+        .rden        (read_refer),
+        .wren        (next_ready_refer),
+        .i_data      (refer),
+        .o_data      (refer_out),
+        .readytoread (refer_full),
+        .empty       (),
+        .shift       (shift)
+    );
+
+    // --------------------------------------------------------------------------
+    // Combinational assigns
+    // --------------------------------------------------------------------------
+    assign shift_ready     = ready && !skip_computation && read_refer;
+    assign min_ab          = (last < band) ? last : band;
+    assign min_abc         = (min_ab == {{DATA_WIDTH-4{1'b1}},4'b0000})
+                              ? 0 : (min_ab < out ? min_ab : out);
+    assign distance_result = (inp > refer_out) ? (inp - refer_out) : (refer_out - inp);
+    assign dtw_calc_result = first
+                              ? 0
+                              : (skip_computation
+                                 ? {{DATA_WIDTH-4{1'b1}},4'b0000}
+                                 : min_abc + distance_result);
+
+    // --------------------------------------------------------------------------
+    // Next-state combinational logic
+    // --------------------------------------------------------------------------
+    always_comb begin
+        // defaults
+        next_state           = state;
+        next_i               = i;
+        next_j               = j;
+        next_count           = count;
+        next_first           = first;
+        next_compute_enable  = compute_enable;
+        next_skip_computation= skip_computation;
+        next_read_refer      = 1'b0;
+        next_inc_done        = 1'b0;
+        next_shift           = 1'b0;
+        next_score           = score;
+        next_ready_refer     = 1'b0;
+        next_ready_camera    = 1'b0;
+        next_done            = 1'b0;
+
+        case (state)
+            IDLE: begin
+                next_first = 1'b1;
+                if (ready) begin
+                    next_ready_refer = 1'b1;
+                    if (refer_full) begin
+                        next_read_refer       = 1'b1;
+                        next_ready_camera     = 1'b1;
+                        next_skip_computation = 1'b0;
+                        next_state            = INCR;
+                    end
+                end
+            end
+
+            INCR: begin
+                if (ready || ready_camera) begin
+                    next_compute_enable   = 1'b1;
+                    next_first            = 1'b0;
+                    next_skip_computation = (i==0) ^ (j==0);
+                    if ((i==SIZE-1) && (j==SIZE-1))
+                        next_inc_done = 1'b1;
+                    else if (j==SIZE-1)
+                        next_j = 0;
+                    next_count      = 1;
+                    next_state      = COMPUTE;
+                    next_read_refer = ((j < SIZE-BAND_RADIUS+2) && (i != BAND_RADIUS-3));
+                end
+            end
+
+            COMPUTE: begin
+                next_read_refer = 1'b1;
+                if ((i < BAND_RADIUS-1 && count==i+1) || (count==BAND_RADIUS-1)) begin
+                    if (inc_done) begin
+                        next_done  = 1'b1;
+                        next_state = DONE;
+                    end else begin
+                        next_ready_camera = 1'b1;
+                        if (j==SIZE-1) next_j = 0;
+                        next_count = 0;
+                        next_state = INCR;
+                    end
+                end else begin
+                    next_count = count + 1;
+                end
+            end
+
+            DONE: begin
+                next_done  = 1'b1;
+                next_score = out;
+                next_state = IDLE;
+            end
+
+            default: next_state = IDLE;
+        endcase
+    end
+
+    // --------------------------------------------------------------------------
+    // Sequential registration (all registers in one always_ff)
+    // --------------------------------------------------------------------------
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            state            <= IDLE;
+            i                <= '0;
+            j                <= '0;
+            count            <= '0;
+            first            <= 1'b1;
+            compute_enable   <= 1'b0;
+            skip_computation <= 1'b0;
+            read_refer       <= 1'b0;
+            inc_done         <= 1'b0;
+            shift            <= 1'b0;
+            score            <= '0;
+            ready_refer      <= 1'b0;
+            ready_camera     <= 1'b0;
+            done             <= 1'b0;
+        end else begin
+            state            <= next_state;
+            i                <= next_i;
+            j                <= next_j;
+            count            <= next_count;
+            first            <= next_first;
+            compute_enable   <= next_compute_enable;
+            skip_computation <= next_skip_computation;
+            read_refer       <= next_read_refer;
+            inc_done         <= next_inc_done;
+            shift            <= next_shift;
+            score            <= next_score;
+            ready_refer      <= next_ready_refer;
+            ready_camera     <= next_ready_camera;
+            done             <= next_done;
+        end
+    end
+
+endmodule
+

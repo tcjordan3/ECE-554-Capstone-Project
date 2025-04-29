@@ -1,0 +1,85 @@
+C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/shift_register.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/shift_register.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module shift_register
+
+Top level modules:
+	shift_register
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/gameloop.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/gameloop.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module gameloop
+
+Top level modules:
+	gameloop
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/label_unit_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/label_unit_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module label_unit_tb
+
+Top level modules:
+	label_unit_tb
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/shift_register_dtw.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/shift_register_dtw.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module shift_register_dtw
+
+Top level modules:
+	shift_register_dtw
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/counter.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/counter.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module counter
+
+Top level modules:
+	counter
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/CORDIC_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/CORDIC_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module CORDIC_tb
+
+Top level modules:
+	CORDIC_tb
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/cordic_iteration.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/cordic_iteration.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module cordic_iteration
+
+Top level modules:
+	cordic_iteration
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/cordic.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/cordic.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module cordic
+
+Top level modules:
+	cordic
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/fifo.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/fifo.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module fifo
+
+Top level modules:
+	fifo
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/shifter.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/shifter.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module shifter
+
+Top level modules:
+	shifter
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/LUT.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/LUT.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module LUT
+
+Top level modules:
+	LUT
+
+} {} {}} C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/label_unit.sv {1 {vlog -work work -sv -stats=none C:/Users/parid/Documents/GitHub/ECE-554-Capstone-Project/current_code/label_unit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module label_unit
+
+Top level modules:
+	label_unit
+
+} {} {}}

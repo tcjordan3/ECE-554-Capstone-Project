@@ -1,0 +1,79 @@
+// shift_register.sv
+`timescale 1ns/1ps
+`default_nettype none
+
+module shift_register #(
+  parameter DEPTH      = 4,
+  parameter DATA_WIDTH= 32
+)(
+  input  logic                   clk,
+  input  logic                   rst_n,
+  input  logic                   rden,
+  input  logic                   wren,
+  input  logic [DATA_WIDTH-1:0]  i_data,
+  output logic [DATA_WIDTH-1:0]  o_data,
+  output logic                   readytoread,
+  output logic                   empty,
+  input  logic                   shift
+);
+
+  // storage
+  logic [DATA_WIDTH-1:0] queue [0:DEPTH-1];
+
+  // status
+  logic [$clog2(DEPTH)-1:0] count;
+  logic full;
+  
+  // read?pointer
+  logic [$clog2(DEPTH)-1:0] read_ptr;
+
+  //--------------------------------------------------------------------------
+  // Combinational status & output
+  //--------------------------------------------------------------------------
+  assign full         = (count == DEPTH);
+  assign empty        = (count == 0);
+  assign readytoread  = (count == 2);
+  assign o_data       = queue[read_ptr];
+
+  //--------------------------------------------------------------------------
+  // FIFO push & queue reset (write side)
+  //--------------------------------------------------------------------------
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      count <= 0;
+      // clear the queue
+      for (int i = 0; i < DEPTH; i++) begin
+        queue[i] <= '0;
+      end
+    end else begin
+      if (wren && !full) begin
+        // shift everything up
+        for (int i = DEPTH-1; i > 0; i--) begin
+          queue[i] <= queue[i-1];
+        end
+        queue[0] <= i_data;
+        if (empty) begin
+          // duplicate first element so readytoread can see two entries
+          queue[1] <= i_data;
+        end
+        count <= count + 1;
+      end 
+    end
+  end
+
+  //--------------------------------------------------------------------------
+  // Read?pointer update (read side)
+  //--------------------------------------------------------------------------
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+      read_ptr <= DEPTH - 1;
+    end else if (rden && !empty) begin
+      // decrement pointer (wrap or shift)
+      if (read_ptr == 0 || shift)
+        read_ptr <= DEPTH - 1;
+      else
+        read_ptr <= read_ptr - 1;
+    end
+  end
+
+endmodule

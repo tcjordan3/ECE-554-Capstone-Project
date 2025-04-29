@@ -1,0 +1,307 @@
+I:/ECE_554/Just_Dance/dtw.sv {1 {vlog -work work -vopt -sv -stats=none {I:\ECE_554\Just_Dance\dtw.sv}
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module dtw
+
+Top level modules:
+	dtw
+
+} {} {}} I:/ECE_554/Just_Dance/end_screen_3star.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/end_screen_3star.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module end_screen_3star
+
+Top level modules:
+	end_screen_3star
+
+} {} {}} I:/ECE_554/Just_Dance/label_unit.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/label_unit.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module label_unit
+
+Top level modules:
+	label_unit
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen_inst.v {0 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen_inst.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+** Error: (vlog-13069) I:/ECE_554/Just_Dance/start_screen_inst.v(1): near "start_screen_inst": syntax error, unexpected IDENTIFIER.
+** Error: I:/ECE_554/Just_Dance/start_screen_inst.v(1): (vlog-13205) Syntax error found in the scope following 'start_screen'. Is there a missing '::'?
+
+} {3.0 5.0} {}} I:/ECE_554/Just_Dance/game_control.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/game_control.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module game_control
+
+Top level modules:
+	game_control
+
+} {} {}} I:/ECE_554/Just_Dance/v/CCD_Capture.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/CCD_Capture.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module CCD_Capture
+
+Top level modules:
+	CCD_Capture
+
+} {} {}} I:/ECE_554/Just_Dance/end_screen_4star.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/end_screen_4star.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module end_screen_4star
+
+Top level modules:
+	end_screen_4star
+
+} {} {}} I:/ECE_554/Just_Dance/v/RAW2RGB.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/RAW2RGB.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module RAW2RGB
+
+Top level modules:
+	RAW2RGB
+
+} {} {}} I:/ECE_554/Just_Dance/end_screen_5star.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/end_screen_5star.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module end_screen_5star
+
+Top level modules:
+	end_screen_5star
+
+} {} {}} I:/ECE_554/Just_Dance/shift_register.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/shift_register.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module shift_register
+
+Top level modules:
+	shift_register
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen_1.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen_1.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module start_screen_1
+
+Top level modules:
+	start_screen_1
+
+} {} {}} I:/ECE_554/Just_Dance/v/I2C_Controller.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/I2C_Controller.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module I2C_Controller
+
+Top level modules:
+	I2C_Controller
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen_2.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen_2.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module start_screen_2
+
+Top level modules:
+	start_screen_2
+
+} {} {}} I:/ECE_554/Just_Dance/v/Reset_Delay.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/Reset_Delay.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module Reset_Delay
+
+Top level modules:
+	Reset_Delay
+
+} {} {}} I:/ECE_554/Just_Dance/gameloop.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/gameloop.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module gameloop
+
+Top level modules:
+	gameloop
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen_3.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen_3.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module start_screen_3
+
+Top level modules:
+	start_screen_3
+
+} {} {}} I:/ECE_554/Just_Dance/dtw_tb.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/dtw_tb.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module dtw_tb
+
+Top level modules:
+	dtw_tb
+
+} {} {}} I:/ECE_554/Just_Dance/v/Line_Buffer1.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/Line_Buffer1.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module Line_Buffer1
+
+Top level modules:
+	Line_Buffer1
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen_bb.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen_bb.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module start_screen
+
+Top level modules:
+	start_screen
+
+} {} {}} I:/ECE_554/Just_Dance/happy_feet.sv {1 {vlog -work work -vopt -sv -stats=none {I:\ECE_554\Just_Dance\happy_feet.sv}
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module happy_feet
+
+Top level modules:
+	happy_feet
+
+} {} {}} I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module I2C_CCD_Config
+
+Top level modules:
+	I2C_CCD_Config
+
+} {} {}} I:/ECE_554/Just_Dance/angles_ll.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/angles_ll.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module angles_ll
+
+Top level modules:
+	angles_ll
+
+} {} {}} I:/ECE_554/Just_Dance/counter.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/counter.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module counter
+
+Top level modules:
+	counter
+
+} {} {}} I:/ECE_554/Just_Dance/shift_register_dtw.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/shift_register_dtw.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module shift_register_dtw
+
+Top level modules:
+	shift_register_dtw
+
+} {} {}} I:/ECE_554/Just_Dance/hier.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/hier.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module hier
+
+Top level modules:
+	hier
+
+} {} {}} I:/ECE_554/Just_Dance/v/sdram_pll.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/sdram_pll.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module sdram_pll
+
+Top level modules:
+	sdram_pll
+
+} {} {}} I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module SEG7_LUT_6
+
+Top level modules:
+	SEG7_LUT_6
+
+} {} {}} I:/ECE_554/Just_Dance/cordic_iteration.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/cordic_iteration.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module cordic_iteration
+
+Top level modules:
+	cordic_iteration
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module start_screen
+
+Top level modules:
+	start_screen
+
+} {} {}} I:/ECE_554/Just_Dance/DE1_SoC_CAMERA.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/DE1_SoC_CAMERA.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module DE1_SoC_CAMERA
+
+Top level modules:
+	DE1_SoC_CAMERA
+
+} {} {}} I:/ECE_554/Just_Dance/angles_u.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/angles_u.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module angles_u
+
+Top level modules:
+	angles_u
+
+} {} {}} I:/ECE_554/Just_Dance/dtw_stochastic.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/dtw_stochastic.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module dtw_stochastic
+
+Top level modules:
+	dtw_stochastic
+
+} {} {}} I:/ECE_554/Just_Dance/v/VGA_Controller.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/VGA_Controller.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module VGA_Controller
+
+Top level modules:
+	VGA_Controller
+
+} {} {}} I:/ECE_554/Just_Dance/angles_lr.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/angles_lr.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module angles_lr
+
+Top level modules:
+	angles_lr
+
+} {} {}} I:/ECE_554/Just_Dance/score.sv {1 {vlog -work work -vopt -sv -stats=none {I:\ECE_554\Just_Dance\score.sv}
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module score
+
+Top level modules:
+	score
+
+} {} {}} I:/ECE_554/Just_Dance/fifo.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/fifo.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module fifo
+
+Top level modules:
+	fifo
+
+} {} {}} I:/ECE_554/Just_Dance/cordic.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/cordic.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module cordic
+
+Top level modules:
+	cordic
+
+} {} {}} I:/ECE_554/Just_Dance/v/SEG7_LUT.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/v/SEG7_LUT.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module SEG7_LUT
+
+Top level modules:
+	SEG7_LUT
+
+} {} {}} I:/ECE_554/Just_Dance/uart_tx.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/uart_tx.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module uart_tx
+
+Top level modules:
+	uart_tx
+
+} {} {}} I:/ECE_554/Just_Dance/start_screen_second.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/start_screen_second.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module start_screen_second
+
+Top level modules:
+	start_screen_second
+
+} {} {}} I:/ECE_554/Just_Dance/end_screen_1star.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/end_screen_1star.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module end_screen_1star
+
+Top level modules:
+	end_screen_1star
+
+} {} {}} I:/ECE_554/Just_Dance/shifter.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/shifter.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module shifter
+
+Top level modules:
+	shifter
+
+} {} {}} I:/ECE_554/Just_Dance/LUT.sv {1 {vlog -work work -vopt -sv -stats=none I:/ECE_554/Just_Dance/LUT.sv
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module LUT
+
+Top level modules:
+	LUT
+
+} {} {}} I:/ECE_554/Just_Dance/end_screen_2star.v {1 {vlog -work work -vopt -stats=none I:/ECE_554/Just_Dance/end_screen_2star.v
+Questa Intel Starter FPGA Edition-64 vlog 2023.3 Compiler 2023.07 Jul 17 2023
+-- Compiling module end_screen_2star
+
+Top level modules:
+	end_screen_2star
+
+} {} {}}

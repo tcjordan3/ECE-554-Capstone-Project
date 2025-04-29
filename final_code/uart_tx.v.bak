@@ -1,0 +1,83 @@
+// ============================================================================
+// uart_tx.v
+// Simple UART 8?N?1 transmitter: one start bit, 8 data bits, one stop bit.
+// ============================================================================
+module uart_tx #(
+    parameter CLK_FREQ = 25000000,
+    parameter BAUD     = 115200
+)(
+    input        clk,
+    input        rst,       // active high reset
+    input        tx_start,  // pulse to begin sending
+    input  [7:0] tx_data,   // byte to send
+    output reg   tx_busy,   // high while sending
+    output reg   tx_pin     // UART TX line
+);
+
+    localparam integer BIT_TICKS = CLK_FREQ / BAUD;
+
+    typedef enum logic [1:0] { IDLE, START_BIT, DATA_BITS, STOP_BIT } state_t;
+    state_t state;
+    reg [15:0] tick_cnt;
+    reg [2:0]  bit_idx;
+    reg [7:0]  shifter;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            state    <= IDLE;
+            tx_pin   <= 1'b1;
+            tx_busy  <= 1'b0;
+            tick_cnt <= 0;
+            bit_idx  <= 0;
+            shifter  <= 0;
+        end else begin
+            case (state)
+                IDLE: begin
+                    tx_pin  <= 1'b1;
+                    tx_busy <= 1'b0;
+                    if (tx_start) begin
+                        tx_busy  <= 1'b1;
+                        shifter  <= tx_data;
+                        tick_cnt <= 0;
+                        state    <= START_BIT;
+                    end
+                end
+
+                START_BIT: begin
+                    tx_pin <= 1'b0;
+                    if (tick_cnt < BIT_TICKS-1)
+                        tick_cnt <= tick_cnt + 1;
+                    else begin
+                        tick_cnt <= 0;
+                        bit_idx  <= 0;
+                        state    <= DATA_BITS;
+                    end
+                end
+
+                DATA_BITS: begin
+                    tx_pin <= shifter[bit_idx];
+                    if (tick_cnt < BIT_TICKS-1)
+                        tick_cnt <= tick_cnt + 1;
+                    else begin
+                        tick_cnt <= 0;
+                        if (bit_idx < 7)
+                            bit_idx <= bit_idx + 1;
+                        else
+                            state   <= STOP_BIT;
+                    end
+                end
+
+                STOP_BIT: begin
+                    tx_pin <= 1'b1;
+                    if (tick_cnt < BIT_TICKS-1)
+                        tick_cnt <= tick_cnt + 1;
+                    else
+                        state <= IDLE;
+                end
+
+                default: state <= IDLE;
+            endcase
+        end
+    end
+endmodule
+
