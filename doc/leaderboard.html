@@ -50,7 +50,7 @@
                     <li class="nav-item"><a class="nav-link" href="microarchitecture-review.html">Microarchitecture Review</a></li>
                     <li class="nav-item"><a class="nav-link" href="final-docs.html">Final Documents</a></li>
                     <li class="nav-item"><a class="nav-link" href="demo.html">Demo</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="leaderboard.html">Leaderboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="leaderboard.html">Leaderboard</a></li> <!-- Add this line -->
                 </ul>
             </div>
         </div>
@@ -91,16 +91,20 @@
                     <ul id="leaderboard" class="list-group">
                         <!-- Leaderboard entries will go here -->
                     </ul>
+                    <!-- Clear Leaderboard Button -->
+                    <button id="clearLeaderboard" class="btn btn-danger mt-3">Clear Leaderboard</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Check if leaderboard exists in localStorage, otherwise initialize it
         const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
 
         const leaderboardList = document.getElementById('leaderboard');
         const scoreForm = document.getElementById('scoreForm');
+        const clearLeaderboardBtn = document.getElementById('clearLeaderboard');
 
         // Display current leaderboard
         function displayLeaderboard() {
@@ -123,13 +127,20 @@
 
             if (name && score) {
                 leaderboard.push({ name, score: parseInt(score) });
-                localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-                displayLeaderboard(); // Update leaderboard
+                localStorage.setItem('leaderboard', JSON.stringify(leaderboard)); // Save updated leaderboard
+                displayLeaderboard(); // Update leaderboard view
                 scoreForm.reset(); // Clear the form
             }
         });
 
-        // Initial display
+        // Clear leaderboard
+        clearLeaderboardBtn.addEventListener('click', () => {
+            // Clear the leaderboard data in localStorage
+            localStorage.removeItem('leaderboard');
+            displayLeaderboard(); // Refresh the leaderboard
+        });
+
+        // Initial display of leaderboard
         displayLeaderboard();
     </script>
 
