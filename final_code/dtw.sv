@@ -13,7 +13,6 @@ module dtw #(
     output reg                      ready_refer,
     output reg                      ready_camera,
     input  wire                     ready,
-    input  wire                     en,
     output reg                      done
 );
 

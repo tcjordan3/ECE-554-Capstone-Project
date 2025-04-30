@@ -1,0 +1,466 @@
+`timescale 1ns/1ps
+`default_nettype wire
+
+module DE1_SoC_CAMERA(
+    ///////// ADC /////////
+    inout              ADC_CS_N,
+    output             ADC_DIN,
+    input              ADC_DOUT,
+    output             ADC_SCLK,
+
+    ///////// AUD /////////
+    input              AUD_ADCDAT,
+    inout              AUD_ADCLRCK,
+    inout              AUD_BCLK,
+    output             AUD_DACDAT,
+    inout              AUD_DACLRCK,
+    output             AUD_XCK,
+
+    ///////// CLOCKS /////////
+    input              CLOCK2_50,
+    input              CLOCK3_50,
+    input              CLOCK4_50,
+    input              CLOCK_50,
+
+    ///////// DRAM /////////
+    output      [12:0] DRAM_ADDR,
+    output      [1:0]  DRAM_BA,
+    output             DRAM_CAS_N,
+    output             DRAM_CKE,
+    output             DRAM_CLK,
+    output             DRAM_CS_N,
+    inout       [15:0] DRAM_DQ,
+    output             DRAM_LDQM,
+    output             DRAM_RAS_N,
+    output             DRAM_UDQM,
+    output             DRAM_WE_N,
+
+    ///////// FAN /////////
+    output             FAN_CTRL,
+
+    ///////// FPGA I²C /////////
+    output             FPGA_I2C_SCLK,
+    inout              FPGA_I2C_SDAT,
+
+    ///////// GPIO /////////
+    inout     [35:0]   GPIO_0,
+
+    ///////// HEX DISPLAYS /////////
+    output      [6:0]  HEX0,
+    output      [6:0]  HEX1,
+    output      [6:0]  HEX2,
+    output      [6:0]  HEX3,
+    output      [6:0]  HEX4,
+    output      [6:0]  HEX5,
+
+`ifdef ENABLE_HPS
+    ///////// HPS (omitted) /////////
+`endif
+
+    ///////// IRDA /////////
+    input              IRDA_RXD,
+    output             IRDA_TXD,
+
+    ///////// KEYS & SWITCHES /////////
+    input       [3:0]  KEY,
+    input       [9:0]  SW,
+
+    ///////// LEDR /////////
+    output      [9:0]  LEDR,
+
+    ///////// PS/2 /////////
+    inout              PS2_CLK,
+    inout              PS2_CLK2,
+    inout              PS2_DAT,
+    inout              PS2_DAT2,
+
+    ///////// TV Decoder /////////
+    input              TD_CLK27,
+    input      [7:0]   TD_DATA,
+    input              TD_HS,
+    output             TD_RESET_N,
+    input              TD_VS,
+
+`ifdef ENABLE_USB
+    ///////// USB (omitted) /////////
+`endif
+
+    ///////// VGA /////////
+    output      [7:0]  VGA_B,
+    output             VGA_BLANK_N,
+    output             VGA_CLK,
+    output      [7:0]  VGA_G,
+    output      [7:0]  VGA_R,
+    output             VGA_HS,
+    output             VGA_SYNC_N,
+    output             VGA_VS,
+
+    ///////// D5M CAMERA /////////
+    input       [11:0] D5M_D,
+    input              D5M_FVAL,
+    input              D5M_LVAL,
+    input              D5M_PIXLCLK,
+    output             D5M_RESET_N,
+    output             D5M_SCLK,
+    inout              D5M_SDATA,
+    input              D5M_STROBE,
+    output             D5M_TRIGGER,
+    output             D5M_XCLKIN
+);
+
+    //------------------------------------------------------------------------
+    // Internal wires & regs
+    //------------------------------------------------------------------------
+    wire        Read, auto_start;
+    wire [15:0] Read_DATA1, Read_DATA2;
+    wire [15:0] X_Cont, Y_Cont;
+    wire [11:0] mCCD_DATA;
+    wire        mCCD_DVAL;
+    wire [31:0] Frame_Cont;
+    wire        DLY_RST_0, DLY_RST_1, DLY_RST_2, DLY_RST_3, DLY_RST_4;
+    reg  [11:0] rCCD_DATA;
+    reg         rCCD_LVAL, rCCD_FVAL;
+    wire [11:0] sCCD_R, sCCD_G, sCCD_B;
+    wire        sCCD_DVAL;
+    wire        sdram_ctrl_clk, VGA_CTRL_CLK;
+    wire [9:0]  oVGA_R, oVGA_G, oVGA_B;
+
+    // power?on auto?start for CCD_Capture
+    assign auto_start  = KEY[0] & DLY_RST_3 & ~DLY_RST_4;
+
+    // camera trigger/reset & LED-lite
+    assign D5M_TRIGGER = 1'b1;
+    assign D5M_RESET_N = DLY_RST_1;
+    assign LEDR        = Y_Cont[9:0];
+
+    // latch raw Bayer data
+    always @(posedge D5M_PIXLCLK) begin
+        rCCD_DATA <= D5M_D;
+        rCCD_LVAL <= D5M_LVAL;
+        rCCD_FVAL <= D5M_FVAL;
+    end
+
+    // feed VGA PLL clock out
+    assign VGA_CTRL_CLK = VGA_CLK;
+
+    //------------------------------------------------------------------------
+    // Reset Delay
+    //------------------------------------------------------------------------
+    Reset_Delay u_reset(
+        .iCLK   (CLOCK_50),
+        .iRST   (KEY[0]),
+        .oRST_0 (DLY_RST_0),
+        .oRST_1 (DLY_RST_1),
+        .oRST_2 (DLY_RST_2),
+        .oRST_3 (DLY_RST_3),
+        .oRST_4 (DLY_RST_4)
+    );
+
+    //------------------------------------------------------------------------
+    // CCD Capture ? SDRAM
+    //------------------------------------------------------------------------
+    CCD_Capture u_capture(
+        .oDATA       (mCCD_DATA),
+        .oDVAL       (mCCD_DVAL),
+        .oX_Cont     (X_Cont),
+        .oY_Cont     (Y_Cont),
+        .oFrame_Cont (Frame_Cont),
+        .iDATA       (rCCD_DATA),
+        .iFVAL       (rCCD_FVAL),
+        .iLVAL       (rCCD_LVAL),
+        .iSTART      (!KEY[3] | auto_start),
+        .iEND        (!KEY[2]),
+        .iCLK        (~D5M_PIXLCLK),
+        .iRST        (DLY_RST_2)
+    );
+
+    //------------------------------------------------------------------------
+    // RAW ? RGB
+    //------------------------------------------------------------------------
+    RAW2RGB u_raw2rgb(
+        .iCLK    (D5M_PIXLCLK),
+        .iRST    (DLY_RST_1),
+        .iDATA   (mCCD_DATA),
+        .iDVAL   (mCCD_DVAL),
+        .oRed    (sCCD_R),
+        .oGreen  (sCCD_G),
+        .oBlue   (sCCD_B),
+        .oDVAL   (sCCD_DVAL),
+        .iX_Cont (X_Cont),
+        .iY_Cont (Y_Cont)
+    );
+
+    //------------------------------------------------------------------------
+    // 7?segment display
+    //------------------------------------------------------------------------
+    SEG7_LUT_6 u_seg7(
+        .oSEG0(HEX0), .oSEG1(HEX1),
+        .oSEG2(HEX2), .oSEG3(HEX3),
+        .oSEG4(HEX4), .oSEG5(HEX5),
+        .iDIG (Frame_Cont[23:0])
+    );
+
+    //------------------------------------------------------------------------
+    // SDRAM PLL & Controller
+    //------------------------------------------------------------------------
+    sdram_pll u_pll(
+        .refclk   (CLOCK_50),
+        .rst      (!DLY_RST_0),     // keep held until RST_0 de?asserts
+        .outclk_0 (sdram_ctrl_clk),
+        .outclk_1 (DRAM_CLK),
+        .outclk_2 (D5M_XCLKIN),
+        .outclk_3 (VGA_CLK)
+    );
+
+    Sdram_Control u_sdram(
+        .RESET_N     (KEY[0]),    .CLK(sdram_ctrl_clk),
+        .WR1_DATA    ({1'b0,sCCD_G[11:7],sCCD_B[11:2]}),
+        .WR1         (sCCD_DVAL), .WR1_ADDR(0),
+        .WR1_MAX_ADDR(640*480),   .WR1_LENGTH(8'h50),
+        .WR1_LOAD    (!DLY_RST_0),.WR1_CLK(~D5M_PIXLCLK),
+        .WR2_DATA    ({1'b0,sCCD_G[6:2],sCCD_R[11:2]}),
+        .WR2         (sCCD_DVAL), .WR2_ADDR(23'h100000),
+        .WR2_MAX_ADDR(23'h100000+640*480),
+        .WR2_LENGTH  (8'h50),     .WR2_LOAD(!DLY_RST_0),
+        .WR2_CLK     (~D5M_PIXLCLK),
+        .RD1_DATA    (Read_DATA1),.RD1(Read),
+        .RD1_ADDR    (0),         .RD1_MAX_ADDR(640*480),
+        .RD1_LENGTH  (8'h50),     .RD1_LOAD(!DLY_RST_0),
+        .RD1_CLK     (VGA_CTRL_CLK),
+        .RD2_DATA    (Read_DATA2),.RD2(Read),
+        .RD2_ADDR    (23'h100000),.RD2_MAX_ADDR(23'h100000+640*480),
+        .RD2_LENGTH  (8'h50),     .RD2_LOAD(!DLY_RST_0),
+        .RD2_CLK     (VGA_CTRL_CLK),
+        .SA          (DRAM_ADDR),
+        .BA          (DRAM_BA),
+        .CS_N        (DRAM_CS_N),
+        .CKE         (DRAM_CKE),
+        .RAS_N       (DRAM_RAS_N),
+        .CAS_N       (DRAM_CAS_N),
+        .WE_N        (DRAM_WE_N),
+        .DQ          (DRAM_DQ),
+        .DQM         ({DRAM_UDQM,DRAM_LDQM})
+    );
+
+    //------------------------------------------------------------------------
+    // I2C config for D5M
+    //------------------------------------------------------------------------
+    I2C_CCD_Config u_i2c(
+        .iCLK           (CLOCK2_50),
+        .iRST_N         (DLY_RST_2),
+        .iEXPOSURE_ADJ  (KEY[1]),
+        .iEXPOSURE_DEC_p(SW[0]),
+        .iZOOM_MODE_SW  (SW[9]),
+        .I2C_SCLK       (D5M_SCLK),
+        .I2C_SDAT       (D5M_SDATA)
+    );
+
+    //------------------------------------------------------------------------
+    // FSM States
+    //------------------------------------------------------------------------
+    localparam S_SPLASH  = 0,
+               S_COUNT3  = 1,
+               S_COUNT2  = 2,
+               S_COUNT1  = 3,
+               S_CAPTURE = 4,
+               S_END     = 5;
+
+    reg [2:0] fsm_state;
+    reg [7:0] frame_cnt;
+    reg       vsync_d;
+
+    // track VSYNC falling
+    always @(posedge VGA_CTRL_CLK or negedge DLY_RST_2) begin
+        if (!DLY_RST_2) vsync_d <= 1'b0;
+        else            vsync_d <= VGA_VS;
+    end
+
+    // count full frames for capture pacing
+    reg [2:0] drop_cnt;
+    reg [9:0] angle_frame;
+
+    always @(posedge VGA_CTRL_CLK or negedge DLY_RST_2) begin
+        if (!DLY_RST_2) begin
+            drop_cnt    <= 0;
+            angle_frame <= 0;
+        end else if (fsm_state == S_CAPTURE && vsync_d && !VGA_VS) begin
+            if (drop_cnt < 4) begin
+                drop_cnt <= drop_cnt + 1;
+            end else begin
+                drop_cnt    <= drop_cnt + 1;
+                angle_frame <= (angle_frame == 601) ? 0 : angle_frame + 1;
+            end
+            if (drop_cnt == 6) drop_cnt <= 0;
+        end
+    end
+
+    // main FSM
+    always @(posedge VGA_CTRL_CLK or negedge DLY_RST_2) begin
+        if (!DLY_RST_2) begin
+            fsm_state <= S_SPLASH;
+            frame_cnt <= 0;
+        end else begin
+            case (fsm_state)
+                S_SPLASH:
+                    if (~KEY[3] && vsync_d)
+                        fsm_state <= S_COUNT3;
+
+                S_COUNT3:
+                    if (vsync_d && !VGA_VS) begin
+                        if (frame_cnt == 59) begin
+                            fsm_state <= S_COUNT2; frame_cnt <= 0;
+                        end else
+                            frame_cnt <= frame_cnt + 1;
+                    end
+
+                S_COUNT2:
+                    if (vsync_d && !VGA_VS) begin
+                        if (frame_cnt == 59) begin
+                            fsm_state <= S_COUNT1; frame_cnt <= 0;
+                        end else
+                            frame_cnt <= frame_cnt + 1;
+                    end
+
+                S_COUNT1:
+                    if (vsync_d && !VGA_VS) begin
+                        if (frame_cnt == 59) begin
+                            fsm_state <= S_CAPTURE; frame_cnt <= 0;
+                        end else
+                            frame_cnt <= frame_cnt + 1;
+                    end
+
+                S_CAPTURE:
+                    if (angle_frame == 601 && vsync_d && !VGA_VS)
+                        fsm_state <= S_END;
+
+                default: ;
+            endcase
+        end
+    end
+
+    // shared ROM address
+    reg [18:0] rom_addr;
+    always @(posedge VGA_CTRL_CLK or negedge DLY_RST_2) begin
+        if (!DLY_RST_2)
+            rom_addr <= 0;
+        else if (vsync_d && !VGA_VS)
+            rom_addr <= 0;
+        else if (Read)
+            rom_addr <= rom_addr + 1;
+    end
+
+    // instantiate ROMs
+    wire q_splash, q_3, q_2, q_1, q_end;
+    start_screen    rom_splash(.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_splash));
+    start_screen_3  rom_cnt3  (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_3));
+    start_screen_2  rom_cnt2  (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_2));
+    start_screen_1  rom_cnt1  (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_1));
+    end_screen      rom_end   (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_end));
+
+    wire [9:0] px_splash = q_splash ? 10'h3FF : 10'h000;
+    wire [9:0] px3       = q_3      ? 10'h3FF : 10'h000;
+    wire [9:0] px2       = q_2      ? 10'h3FF : 10'h000;
+    wire [9:0] px1       = q_1      ? 10'h3FF : 10'h000;
+    wire [9:0] px_end    = q_end    ? 10'h3FF : 10'h000;
+
+    // angle ROMs at 30 FPS pacing
+    wire [9:0] refer_u, refer_ll, refer_lr;
+    angles_u   rom_u  ( .clock(VGA_CTRL_CLK), .address(angle_frame), .q(refer_u)   );
+    angles_ll  rom_ll ( .clock(VGA_CTRL_CLK), .address(angle_frame), .q(refer_ll) );
+    angles_lr  rom_lr ( .clock(VGA_CTRL_CLK), .address(angle_frame), .q(refer_lr) );
+
+    // (happy_feet is instantiated inside RAW2RGB)
+
+    // unpack camera pixels
+    wire [9:0] cam_r10 = Read_DATA2[9:0];
+    wire [9:0] cam_g10 = {Read_DATA1[14:10],Read_DATA2[14:10]};
+    wire [9:0] cam_b10 = Read_DATA1[9:0];
+
+    //------------------------------------------------------------------------
+    // UART?TX at start of ?1? (S_COUNT1)
+    //------------------------------------------------------------------------
+    reg  [2:0] prev_st;
+    reg        uart_start;
+    wire       uart_busy, uart_pin;
+
+    always @(posedge VGA_CTRL_CLK or negedge DLY_RST_2)
+        prev_st <= (!DLY_RST_2) ? S_SPLASH : fsm_state;
+
+    wire send_uart = (fsm_state == S_COUNT1 && prev_st != S_COUNT1);
+
+    always @(posedge VGA_CTRL_CLK or negedge DLY_RST_2) begin
+        if (!DLY_RST_2)
+            uart_start <= 1'b0;
+        else if (send_uart && !uart_busy)
+            uart_start <= 1'b1;
+        else
+            uart_start <= 1'b0;
+    end
+
+    uart_tx #(
+      .CLK_FREQ(25_000_000),
+      .BAUD    (115200)
+    ) u_uart_tx (
+      .clk      (VGA_CTRL_CLK),
+      .rst      (!DLY_RST_2),
+      .tx_start (uart_start),
+      .tx_data  (8'hA5),
+      .tx_busy  (uart_busy),
+      .tx_pin   (uart_pin)
+    );
+
+    // drive only bit?0, others tri?state
+    assign GPIO_0 = { {35{1'bz}}, uart_pin };
+
+    //------------------------------------------------------------------------
+    // Final VGA Mux & Controller
+    //------------------------------------------------------------------------
+    wire [9:0] vga_r10 =
+          (fsm_state==S_SPLASH) ? px_splash :
+          (fsm_state==S_COUNT3) ? px3       :
+          (fsm_state==S_COUNT2) ? px2       :
+          (fsm_state==S_COUNT1) ? px1       :
+          (fsm_state==S_END)    ? px_end    :
+                                  cam_r10;
+
+    wire [9:0] vga_g10 =
+          (fsm_state==S_SPLASH) ? px_splash :
+          (fsm_state==S_COUNT3) ? px3       :
+          (fsm_state==S_COUNT2) ? px2       :
+          (fsm_state==S_COUNT1) ? px1       :
+          (fsm_state==S_END)    ? px_end    :
+                                  cam_g10;
+
+    wire [9:0] vga_b10 =
+          (fsm_state==S_SPLASH) ? px_splash :
+          (fsm_state==S_COUNT3) ? px3       :
+          (fsm_state==S_COUNT2) ? px2       :
+          (fsm_state==S_COUNT1) ? px1       :
+          (fsm_state==S_END)    ? px_end    :
+                                  cam_b10;
+
+    VGA_Controller u_vga(
+        .oRequest    (Read),
+        .iRed        (vga_r10),
+        .iGreen      (vga_g10),
+        .iBlue       (vga_b10),
+        .oVGA_R      (oVGA_R),
+        .oVGA_G      (oVGA_G),
+        .oVGA_B      (oVGA_B),
+        .oVGA_H_SYNC (VGA_HS),
+        .oVGA_V_SYNC (VGA_VS),
+        .oVGA_SYNC   (VGA_SYNC_N),
+        .oVGA_BLANK  (VGA_BLANK_N),
+        .iCLK        (VGA_CTRL_CLK),
+        .iRST_N      (DLY_RST_2),
+        .iZOOM_MODE_SW(SW[9])
+    );
+
+    assign VGA_R = oVGA_R[9:2];
+    assign VGA_G = oVGA_G[9:2];
+    assign VGA_B = oVGA_B[9:2];
+
+endmodule
+
+`default_nettype wire
+

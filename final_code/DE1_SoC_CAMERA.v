@@ -301,8 +301,8 @@ module DE1_SoC_CAMERA(
         .refer_in_u  (refer_u),
         .refer_in_ll (refer_lr),
         .refer_in_lr (refer_ll),
-        .en          ((fsm_state == S_CAPTURE) & capture_frame),
-        //.en          ((fsm_state == S_CAPTURE)),
+        //.en          ((fsm_state == S_CAPTURE) & capture_frame),
+        .en          ((fsm_state == S_CAPTURE)),
         .oRed        (sCCD_R),
         .oGreen      (sCCD_G),
         .oBlue       (sCCD_B),
@@ -502,7 +502,7 @@ module DE1_SoC_CAMERA(
     wire [9:0] px1 = q_1 ? 10'h3FF : 10'h000;
 
     // End screens based on star rating
-    wire q_e1, q_e2, q_e3, q_e4, q_e5;
+    wire q_e, q_e1, q_e2, q_e3, q_e4, q_e5;
     end_screen_1star rom_e1 (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_e1));
     end_screen_2star rom_e2 (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_e2));
     end_screen_3star rom_e3 (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_e3));
@@ -514,18 +514,23 @@ module DE1_SoC_CAMERA(
     wire [9:0] px_e4 = q_e4 ? 10'h3FF : 10'h000;
     wire [9:0] px_e5 = q_e5 ? 10'h3FF : 10'h000;
 
-    localparam [31:0]
-      STAR1_THRESH = 32'd1907,
-      STAR2_THRESH = 32'd1250,
-      STAR3_THRESH = 32'd2000,
-      STAR4_THRESH = 32'd3500;
+    end_screen end_screen_inst (.address(rom_addr), .clock(VGA_CTRL_CLK), .q(q_e)); 
+    wire [9:0] px_e = q_e ? 10'h3FF : 10'h000; 
 
-    wire [9:0] px_end =
-        (score_vga < STAR1_THRESH) ? px_e1 :
-        (score_vga < STAR2_THRESH) ? px_e2 :
-        (score_vga < STAR3_THRESH) ? px_e3 :
-        (score_vga < STAR4_THRESH) ? px_e4 :
-                                     px_e5;
+    localparam [31:0]
+      STAR1_THRESH = 32'h010000,
+      STAR2_THRESH = 32'h00B000,
+      STAR3_THRESH = 32'h005000,
+      STAR4_THRESH = 32'h003500;
+
+      wire [9:0] px_end = px_e; 
+
+    // wire [9:0] px_end =
+    //     (score_vga > STAR1_THRESH) ? px_e1 :
+    //     ((score_vga > STAR2_THRESH) ? px_e2 :
+    //     ((score_vga > STAR3_THRESH) ? px_e3 :
+    //     ((score_vga > STAR4_THRESH) ? px_e4 :
+    //                                  px_e5)));
 
     // Live camera pixels from SDRAM read ports
     wire [9:0] cam_r10 = Read_DATA2[ 9:0];

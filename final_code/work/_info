@@ -1,0 +1,1057 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11f vlog 2023.3 2023.07, Jul 17 2023
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 dC:/intelFPGA_lite/23.1std
+T_opt
+!s110 1745082711
+V`ORjT2mcN<B]h1_Noiedf3
+04 6 4 work dtw_tb fast 0
+=1-4cd7179363a2-6803d956-101-4d90
+R0
+!s12b OEM100
+!s124 OEM10U4 
+o-quiet -auto_acc_if_foreign -work work +acc
+Z2 tCvgOpt 0
+n@_opt
+OL;O;2023.3;77
+R1
+vangles_ll
+Z3 !s110 1745884283
+!i10b 1
+!s100 PYB:RA;MG^o4P?_aoAzWm0
+I^lI?03cF^oNdT_z]UOG;32
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+Z5 dC:/Users/parid/Downloads/Just_Dance 6/Just_Dance
+w1745873372
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_ll_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_ll_bb.v
+Z6 L0 35
+Z7 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z8 !s108 1745884283.000000
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_ll_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_ll_bb.v|
+!i113 1
+Z9 o-work work
+R2
+vangles_lr
+R3
+!i10b 1
+!s100 W]5EBHcK]lYNaaiBMB0<71
+I9XfKoQ0FD_60ml20XBlV63
+R4
+R5
+Z10 w1745873373
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_lr_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_lr_bb.v
+R6
+R7
+r1
+!s85 0
+31
+Z11 !s108 1745884282.000000
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_lr_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_lr_bb.v|
+!i113 1
+R9
+R2
+vangles_u
+R3
+!i10b 1
+!s100 <?8G^`fHfig1Ne3jfe]1L0
+IgXP5j0eaA948kFYz1a[Jl3
+R4
+R5
+R10
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_u_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_u_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_u_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/angles_u_bb.v|
+!i113 1
+R9
+R2
+vCCD_Capture
+2I:/ECE_554/Just_Dance/v/CCD_Capture.v
+!s110 1745268524
+!i10b 1
+!s100 OJR9o<d98HinX8>[iZkL]1
+IoNDjPl4IO:mBc54kfnY3d3
+Z12 dI:/ECE_554/Just_Dance
+Z13 w1744752859
+8I:/ECE_554/Just_Dance/v/CCD_Capture.v
+FI:/ECE_554/Just_Dance/v/CCD_Capture.v
+!i122 300
+L0 43 146
+R4
+Z14 OL;L;2023.3;77
+r1
+!s85 0
+31
+Z15 !s108 1745268524.000000
+!s107 I:/ECE_554/Just_Dance/v/CCD_Capture.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/CCD_Capture.v|
+!i113 0
+Z16 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@c@c@d_@capture
+vcluster
+Z17 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z18 !s110 1745884280
+!i10b 1
+!s100 da0TTNm2SL^EYOiE0<0KA0
+IJDGCEzE<C8=za0j_a?4d=2
+R4
+!s105 cluster_sv_unit
+S1
+R5
+w1745883917
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cluster.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cluster.sv
+L0 1
+R7
+r1
+!s85 0
+31
+Z19 !s108 1745884280.000000
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cluster.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cluster.sv|
+!i113 1
+Z20 o-work work -sv
+R2
+vcordic
+R17
+R18
+!i10b 1
+!s100 V0][fYC]I7dn<j@5WS;_G3
+IeIGoV0Hcz68a?PQF7zacS0
+R4
+!s105 cordic_sv_unit
+S1
+R5
+w1745881962
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic.sv|
+!i113 1
+R20
+R2
+vcordic_iteration
+R17
+R3
+!i10b 1
+!s100 I_dL`7k`PFIPfg0C`@lil3
+IkLP1K54`^ACJ`FcNdSJ]L1
+R4
+!s105 cordic_iteration_sv_unit
+S1
+R5
+R10
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic_iteration.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic_iteration.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic_iteration.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/cordic_iteration.sv|
+!i113 1
+R20
+R2
+vcounter
+R17
+R3
+!i10b 1
+!s100 mGoAeUTH3AiW[P@CV3`bk1
+IK:L7^=A>8cPD?KPMc<g;V1
+R4
+!s105 counter_sv_unit
+S1
+R5
+R10
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/counter.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/counter.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R8
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/counter.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/counter.sv|
+!i113 1
+R20
+R2
+vDE1_SoC_CAMERA
+Z21 !s110 1745884282
+!i10b 1
+!s100 8YS:BHzPT0]2g?2EH<JLX0
+I`idAW1NDFE0lch_XfnMlh1
+R4
+R5
+Z22 w1745873374
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/DE1_SoC_CAMERA.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/DE1_SoC_CAMERA.v
+L0 11
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/DE1_SoC_CAMERA.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/DE1_SoC_CAMERA.v|
+!i113 1
+R9
+R2
+n@d@e1_@so@c_@c@a@m@e@r@a
+vdtw
+R17
+R18
+!i10b 1
+!s100 =Fg;QYHjQQ:bilNM]UZZg2
+I>F3EmFGPk[T0[Qd=fei=Z3
+R4
+!s105 dtw_sv_unit
+S1
+R5
+w1745877382
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw.sv|
+!i113 1
+R20
+R2
+vdtw_stochastic
+R17
+R21
+!i10b 1
+!s100 >cdYcgQ^oXRkNM4znXMVd1
+I>ZNI=5T4bW1[ZaQ?:<gIE0
+R4
+!s105 dtw_stochastic_sv_unit
+S1
+R5
+R22
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_stochastic.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_stochastic.sv
+L0 3
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_stochastic.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_stochastic.sv|
+!i113 1
+R20
+R2
+vdtw_tb
+R17
+R21
+!i10b 1
+!s100 bh_2EFM]JIk0_[W[8T;3g2
+I8J@G<SY_QO];YSW^A5=BC1
+R4
+!s105 dtw_tb_sv_unit
+S1
+R5
+R22
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_tb.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_tb.sv
+L0 3
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/dtw_tb.sv|
+!i113 1
+R20
+R2
+vend_screen
+R21
+!i10b 1
+!s100 4iF3OS`JgC0C2MK5V4z<I1
+IZ^2[Gik4fb_9hF31bfD;D2
+R4
+R5
+R22
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen.v
+Z23 L0 40
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen.v|
+!i113 1
+R9
+R2
+vend_screen_1star
+R21
+!i10b 1
+!s100 ;`7DXMlPHO:QfRi9<kO7Q1
+IfSEY5dAZL^TmJ]d;i=JGG3
+R4
+R5
+Z24 w1745873375
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_1star_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_1star_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_1star_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_1star_bb.v|
+!i113 1
+R9
+R2
+vend_screen_2star
+R21
+!i10b 1
+!s100 oji6Z;L0QMje>4PMX^nOl1
+Io5MGK[5;V?foI782e<l:a2
+R4
+R5
+R24
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_2star_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_2star_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_2star_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_2star_bb.v|
+!i113 1
+R9
+R2
+vend_screen_3star
+R21
+!i10b 1
+!s100 0D5;<9zGl3B9G^SRYeh8O1
+IXViRo:44LdI0PHe<mzMVa0
+R4
+R5
+R24
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_3star_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_3star_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_3star_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_3star_bb.v|
+!i113 1
+R9
+R2
+vend_screen_4star
+R21
+!i10b 1
+!s100 1iWG06PX=S9NY0DEe5:O41
+IPfIOzR[EgZm]oQ9YmhCUV1
+R4
+R5
+R24
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_4star_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_4star_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_4star_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_4star_bb.v|
+!i113 1
+R9
+R2
+vend_screen_5star
+Z25 !s110 1745884281
+!i10b 1
+!s100 >n0;nT>JRd=bAU;gD;nzU0
+I59aoU:lfN0b:nH:oO7HnB1
+R4
+R5
+Z26 w1745873376
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_5star_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_5star_bb.v
+R6
+R7
+r1
+!s85 0
+31
+Z27 !s108 1745884281.000000
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_5star_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/end_screen_5star_bb.v|
+!i113 1
+R9
+R2
+vfifo
+R17
+R25
+!i10b 1
+!s100 C3d>zbd:O3Se:U:A8ZCLc2
+I57`Qh;8emj4mIX`B9inYo0
+R4
+!s105 fifo_sv_unit
+S1
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/fifo.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/fifo.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/fifo.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/fifo.sv|
+!i113 1
+R20
+R2
+vgame_control
+R25
+!i10b 1
+!s100 ]lKh`V1fT]Q`B?lO06PUI2
+IG6N1kAfV]7gUSEDVKEKVa3
+R4
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/game_control.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/game_control.v
+L0 1
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/game_control.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/game_control.v|
+!i113 1
+R9
+R2
+vgameloop
+R17
+R21
+!i10b 1
+!s100 aC:=M7N^GPAB0_P6eXY9^3
+INAP7nIan`YC34@V61OBKd3
+R4
+!s105 gameloop_sv_unit
+S1
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/gameloop.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/gameloop.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/gameloop.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/gameloop.sv|
+!i113 1
+R20
+R2
+vhappy_feet
+2I:\ECE_554\Just_Dance\happy_feet.sv
+DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1745616597
+!i10b 1
+!s100 fI`@hhZ_n>Y<Z6?Dce_Qo2
+IMLElW`hPZDUKAD>019dFV3
+S1
+R12
+w1745616592
+8I:\ECE_554\Just_Dance\happy_feet.sv
+FI:\ECE_554\Just_Dance\happy_feet.sv
+!i122 389
+L0 1 224
+R4
+R14
+r1
+!s85 0
+31
+!s108 1745616597.000000
+!s107 I:\ECE_554\Just_Dance\happy_feet.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:\ECE_554\Just_Dance\happy_feet.sv|
+!i113 0
+o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vhappy_feet_tb
+R17
+R21
+!i10b 1
+!s100 o5Ib47LFkYaWdXbz;fHFb0
+I?CfioR=6^j2OR_F0eRSKA3
+R4
+!s105 happy_feet_tb_sv_unit
+S1
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/happy_feet_tb.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/happy_feet_tb.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/happy_feet_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/happy_feet_tb.sv|
+!i113 1
+R20
+R2
+vhier
+R17
+R21
+!i10b 1
+!s100 9A?UK1JUYP]3em0RCh1T<2
+IJ;d^UG627]TRcUf9cgk^=3
+R4
+!s105 hier_sv_unit
+S1
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/hier.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/hier.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/hier.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/hier.sv|
+!i113 1
+R20
+R2
+vI2C_CCD_Config
+2I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+!s110 1745871513
+!i10b 1
+!s100 BDI?PN0Z@B0dncK:C;oiW3
+IPSH;HGgPiPHLoAC_>EZbg3
+R12
+w1745866269
+8I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+FI:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+!i122 403
+L0 43 229
+R4
+R14
+r1
+!s85 0
+31
+!s108 1745871513.000000
+!s107 I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v|
+!i113 0
+R16
+R2
+n@i2@c_@c@c@d_@config
+vI2C_Controller
+2I:/ECE_554/Just_Dance/v/I2C_Controller.v
+Z28 !s110 1745268525
+!i10b 1
+!s100 z^0D>X0bZ8`gOa3gSKUH73
+IE6CHh71_h<fz47R;jNWoU2
+R12
+R13
+8I:/ECE_554/Just_Dance/v/I2C_Controller.v
+FI:/ECE_554/Just_Dance/v/I2C_Controller.v
+!i122 302
+L0 42 110
+R4
+R14
+r1
+!s85 0
+31
+R15
+!s107 I:/ECE_554/Just_Dance/v/I2C_Controller.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/I2C_Controller.v|
+!i113 0
+R16
+R2
+n@i2@c_@controller
+vlabel_unit
+R17
+R18
+!i10b 1
+!s100 ;;]aD1d^:d<ShPLO^I0iC1
+I>GMCdU2eN;S=emSVa4JHj3
+R4
+!s105 label_unit_sv_unit
+S1
+R5
+w1745876553
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/label_unit.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/label_unit.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R19
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/label_unit.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/label_unit.sv|
+!i113 1
+R20
+R2
+vLine_Buffer1
+2I:/ECE_554/Just_Dance/v/Line_Buffer1.v
+R28
+!i10b 1
+!s100 9IJVMP?:d`<CG]LYO`2Sf2
+IJeK1@3P7hmgf8H=]O46]a0
+R12
+R13
+8I:/ECE_554/Just_Dance/v/Line_Buffer1.v
+FI:/ECE_554/Just_Dance/v/Line_Buffer1.v
+!i122 303
+L0 39 51
+R4
+R14
+r1
+!s85 0
+31
+!s108 1745268525.000000
+!s107 I:/ECE_554/Just_Dance/v/Line_Buffer1.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/Line_Buffer1.v|
+!i113 0
+R16
+R2
+n@line_@buffer1
+vLUT
+R17
+R21
+!i10b 1
+!s100 mAlC]_]<W_]mDEjPRNM1]2
+I87GIGg02;S1DL>O=f:O>G0
+R4
+!s105 LUT_sv_unit
+S1
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/LUT.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/LUT.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/LUT.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/LUT.sv|
+!i113 1
+R20
+R2
+n@l@u@t
+vRAW2RGB
+2I:/ECE_554/Just_Dance/v/RAW2RGB.v
+!s110 1745871508
+!i10b 1
+!s100 ?H=@2_h]`V4DEzd9L3]Z81
+I2>N=:ah;KG>3EDRSTDPCH0
+R12
+w1745871158
+8I:/ECE_554/Just_Dance/v/RAW2RGB.v
+FI:/ECE_554/Just_Dance/v/RAW2RGB.v
+!i122 402
+L0 5 156
+R4
+R14
+r1
+!s85 0
+31
+!s108 1745871508.000000
+!s107 I:/ECE_554/Just_Dance/v/RAW2RGB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/RAW2RGB.v|
+!i113 0
+R16
+R2
+n@r@a@w2@r@g@b
+vReset_Delay
+2I:/ECE_554/Just_Dance/v/Reset_Delay.v
+Z29 !s110 1745268526
+!i10b 1
+!s100 BO]QNi;435TJ@V_FJDUKD3
+IJ`SBkARdozTYa;z`kg3zh0
+R12
+R13
+8I:/ECE_554/Just_Dance/v/Reset_Delay.v
+FI:/ECE_554/Just_Dance/v/Reset_Delay.v
+!i122 305
+L0 43 40
+R4
+R14
+r1
+!s85 0
+31
+Z30 !s108 1745268526.000000
+!s107 I:/ECE_554/Just_Dance/v/Reset_Delay.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/Reset_Delay.v|
+!i113 0
+R16
+R2
+n@reset_@delay
+vscore
+R17
+R21
+!i10b 1
+!s100 ;jA0g9iG0V;DC1]ZHZa7V2
+I[U11OW7=aRYUJW?fDZlEf2
+R4
+!s105 score_sv_unit
+S1
+R5
+R26
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/score.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/score.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/score.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/score.sv|
+!i113 1
+R20
+R2
+vsdram_pll
+2I:/ECE_554/Just_Dance/v/sdram_pll.v
+R29
+!i10b 1
+!s100 ^SUTelAgzTFcog_:@PK4W2
+IfLS8g]ROF6EX`JmSOha]A2
+R12
+R13
+8I:/ECE_554/Just_Dance/v/sdram_pll.v
+FI:/ECE_554/Just_Dance/v/sdram_pll.v
+!i122 306
+L0 8 20
+R4
+R14
+r1
+!s85 0
+31
+R30
+!s107 I:/ECE_554/Just_Dance/v/sdram_pll.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/sdram_pll.v|
+!i113 0
+R16
+R2
+vSEG7_LUT
+2I:/ECE_554/Just_Dance/v/SEG7_LUT.v
+Z31 !s110 1745268527
+!i10b 1
+!s100 o1P=QAl9SobWckCbL^Flb3
+IRV;Of:5`mG@1a32J^d8X=3
+R12
+R13
+8I:/ECE_554/Just_Dance/v/SEG7_LUT.v
+FI:/ECE_554/Just_Dance/v/SEG7_LUT.v
+!i122 307
+L0 43 28
+R4
+R14
+r1
+!s85 0
+31
+R30
+!s107 I:/ECE_554/Just_Dance/v/SEG7_LUT.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/SEG7_LUT.v|
+!i113 0
+R16
+R2
+n@s@e@g7_@l@u@t
+vSEG7_LUT_6
+2I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+R31
+!i10b 1
+!s100 M2C49lj?<V]`o_<DP^3<^1
+I2J9_G^1:T^oeGbKNBLM@E1
+R12
+R13
+8I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+FI:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+!i122 308
+L0 43 13
+R4
+R14
+r1
+!s85 0
+31
+Z32 !s108 1745268527.000000
+!s107 I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v|
+!i113 0
+R16
+R2
+n@s@e@g7_@l@u@t_6
+vshift_register
+R17
+R25
+!i10b 1
+!s100 ]m22CR3fXoG>7>WkSUOL62
+I?GEzOHXfSb1VUgTea4FBc2
+R4
+!s105 shift_register_sv_unit
+S1
+R5
+Z33 w1745873377
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register.sv
+L0 5
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register.sv|
+!i113 1
+R20
+R2
+vshift_register_dtw
+R17
+R25
+!i10b 1
+!s100 SN5YSzMfa9J5S=6fG?=@m1
+IGPUSDjDQ:F;4bVRZCkY4P2
+R4
+!s105 shift_register_dtw_sv_unit
+S1
+R5
+R33
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register_dtw.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register_dtw.sv
+L0 3
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register_dtw.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shift_register_dtw.sv|
+!i113 1
+R20
+R2
+vshifter
+R17
+R25
+!i10b 1
+!s100 Lmla4icfXk[0?K_@5__2;0
+IMB@8k^ECYc2ENP9HL=7f42
+R4
+!s105 shifter_sv_unit
+S1
+R5
+R33
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shifter.sv
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shifter.sv
+L0 1
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shifter.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/shifter.sv|
+!i113 1
+R20
+R2
+vstart_screen
+R25
+!i10b 1
+!s100 oDb8[noeJXD[zKUPG^A:[3
+ImA>b7e;hhS<1bPAXL@K1?2
+R4
+R5
+R33
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen.v
+R23
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen.v|
+!i113 1
+R9
+R2
+vstart_screen_1
+R25
+!i10b 1
+!s100 C<i?f7R]@Q0fD8Lin1^lb2
+IMdL^Hc74gDME2oMz=jHb_2
+R4
+R5
+R33
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_1_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_1_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_1_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_1_bb.v|
+!i113 1
+R9
+R2
+vstart_screen_2
+R25
+!i10b 1
+!s100 Oi=4ILPDJ1JWaPZ_hLDEk3
+IE4PV5S=YkJOZh@<>YNJDz3
+R4
+R5
+R33
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_2_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_2_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_2_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_2_bb.v|
+!i113 1
+R9
+R2
+vstart_screen_3
+R25
+!i10b 1
+!s100 kzaT6]RFDBoLm4MjbFdQ13
+IlkeCUi?DL[hIRF^bN73LM2
+R4
+R5
+R33
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_3_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_3_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_3_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_3_bb.v|
+!i113 1
+R9
+R2
+vstart_screen_second
+R25
+!i10b 1
+!s100 QAK5WE2[LkF;[BVcQ:Pel0
+I5ibFKMB4VUE>FV>6T93fc3
+R4
+R5
+Z34 w1745873378
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_second_bb.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_second_bb.v
+R6
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_second_bb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/start_screen_second_bb.v|
+!i113 1
+R9
+R2
+vuart_tx
+R25
+!i10b 1
+!s100 25HHN?3[]eCdggk^LV2Kk0
+IHn`gSU3Blb;hXH;EI7Zc70
+R4
+R5
+R34
+8C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/uart_tx.v
+FC:/Users/parid/Downloads/Just_Dance 6/Just_Dance/uart_tx.v
+L0 5
+R7
+r1
+!s85 0
+31
+R27
+!s107 C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/uart_tx.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/parid/Downloads/Just_Dance 6/Just_Dance/uart_tx.v|
+!i113 1
+R9
+R2
+vVGA_Controller
+2I:/ECE_554/Just_Dance/v/VGA_Controller.v
+R31
+!i10b 1
+!s100 9?Jf_KF6HVQMFmA4KJ>QI3
+IQj>ZP8>]nKXUH1Szh56:W0
+R12
+R13
+8I:/ECE_554/Just_Dance/v/VGA_Controller.v
+FI:/ECE_554/Just_Dance/v/VGA_Controller.v
+!i122 309
+L0 43 180
+R4
+R14
+r1
+!s85 0
+31
+R32
+!s107 I:/ECE_554/Just_Dance/v/VGA_Controller.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ECE_554/Just_Dance/v/VGA_Controller.v|
+!i113 0
+R16
+R2
+n@v@g@a_@controller

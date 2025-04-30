@@ -1,0 +1,624 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11f vlog 2023.3 2023.07, Jul 17 2023
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA_lite/23.1std
+T_opt
+!s110 1745082711
+V`ORjT2mcN<B]h1_Noiedf3
+04 6 4 work dtw_tb fast 0
+=1-4cd7179363a2-6803d956-101-4d90
+R0
+!s12b OEM100
+!s124 OEM10U4 
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2023.3;77
+vangles_ll
+2I:/ECE_554/Just_Dance/angles_ll.v
+Z2 !s110 1745077603
+!i10b 1
+!s100 ]J_NV9Xa:elW0i6A48g3i0
+IzEX0i=o;k468MV=R[iKW42
+Z3 dI:/ECE_554/Just_Dance
+w1745016708
+8I:/ECE_554/Just_Dance/angles_ll.v
+FI:/ECE_554/Just_Dance/angles_ll.v
+!i122 212
+Z4 L0 40 62
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2023.3;77
+r1
+!s85 0
+31
+!i113 0
+Z7 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vangles_lr
+2I:/ECE_554/Just_Dance/angles_lr.v
+R2
+!i10b 1
+!s100 PBoEl3emAa9;`0lB@SlhW1
+Ia8a:JojM[>R=AlgZJ0Cm43
+R3
+w1745016669
+8I:/ECE_554/Just_Dance/angles_lr.v
+FI:/ECE_554/Just_Dance/angles_lr.v
+!i122 213
+R4
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+vangles_u
+2I:/ECE_554/Just_Dance/angles_u.v
+Z8 !s110 1745077604
+!i10b 1
+!s100 hfRI;RUdB^hE_c`=0H_8U3
+IS8=2fCNZB>Pz2NLYDhMgB0
+R3
+w1745016614
+8I:/ECE_554/Just_Dance/angles_u.v
+FI:/ECE_554/Just_Dance/angles_u.v
+!i122 214
+R4
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+vCCD_Capture
+2I:/ECE_554/Just_Dance/v/CCD_Capture.v
+!s110 1745077590
+!i10b 1
+!s100 OJR9o<d98HinX8>[iZkL]1
+IoNDjPl4IO:mBc54kfnY3d3
+R3
+Z9 w1744752859
+8I:/ECE_554/Just_Dance/v/CCD_Capture.v
+FI:/ECE_554/Just_Dance/v/CCD_Capture.v
+!i122 186
+L0 43 146
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@c@c@d_@capture
+vcluster
+2I:/ECE_554/Just_Dance/cluster.sv
+Z10 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1745080559
+!i10b 1
+!s100 mTKZJ6k5Dj>]n?]h02OFk0
+IcYY0=EdmO7T;^L5J^h6190
+S1
+R3
+w1745080502
+8I:/ECE_554/Just_Dance/cluster.sv
+FI:/ECE_554/Just_Dance/cluster.sv
+!i122 228
+L0 1 189
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+Z11 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vcordic
+2I:/ECE_554/Just_Dance/cordic.sv
+R10
+!s110 1745077599
+!i10b 1
+!s100 GD@Mk`g<e4;[OMMNO?eTa3
+ImNU:nL6N<H5YFjN901MZD2
+S1
+R3
+w1745016022
+8I:/ECE_554/Just_Dance/cordic.sv
+FI:/ECE_554/Just_Dance/cordic.sv
+!i122 204
+L0 1 63
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vcordic_iteration
+2I:/ECE_554/Just_Dance/cordic_iteration.sv
+R10
+!s110 1745080556
+!i10b 1
+!s100 cW7]lUJB9FLGI7nzQZI>H0
+IUccci3nLIlPJGX?CHaXlh2
+S1
+R3
+w1745080481
+8I:/ECE_554/Just_Dance/cordic_iteration.sv
+FI:/ECE_554/Just_Dance/cordic_iteration.sv
+!i122 227
+L0 1 94
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vcounter
+2I:/ECE_554/Just_Dance/counter.sv
+R10
+Z12 !s110 1745077607
+!i10b 1
+!s100 RPF<`VDaR>7eKU=:cN1<42
+I1agj8[1Fd5aiG8^i:3QT=0
+S1
+R3
+w1745022798
+8I:/ECE_554/Just_Dance/counter.sv
+FI:/ECE_554/Just_Dance/counter.sv
+!i122 220
+L0 1 21
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vDE1_SoC_CAMERA
+2I:\ECE_554\Just_Dance\DE1_SoC_CAMERA.v
+!s110 1745081366
+!i10b 1
+!s100 8Ym>Dgc=HJb2RnLK?5Inz3
+IfJD@b8@S?_X`<dW?oDM2g0
+R3
+w1745081348
+8I:\ECE_554\Just_Dance\DE1_SoC_CAMERA.v
+FI:\ECE_554\Just_Dance\DE1_SoC_CAMERA.v
+!i122 229
+L0 4 452
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@d@e1_@so@c_@c@a@m@e@r@a
+vdtw
+2I:/ECE_554/Just_Dance/dtw.sv
+R10
+!s110 1745079572
+!i10b 1
+!s100 @;WoLOe^VUF;hjB<2Dm;I3
+Ijezm;G1K;>1Zk2nBmR:[I2
+S1
+R3
+w1745079568
+8I:/ECE_554/Just_Dance/dtw.sv
+FI:/ECE_554/Just_Dance/dtw.sv
+!i122 225
+L0 1 262
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vdtw_stochastic
+2I:/ECE_554/Just_Dance/dtw_stochastic.sv
+R10
+R8
+!i10b 1
+!s100 NPlDScEeo4MI[Ioe[7`i;3
+I6kB6W[:=48V^V60d1`V@n3
+S1
+R3
+w1745022849
+8I:/ECE_554/Just_Dance/dtw_stochastic.sv
+FI:/ECE_554/Just_Dance/dtw_stochastic.sv
+!i122 215
+L0 3 45
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vdtw_tb
+2I:\ECE_554\Just_Dance\dtw_tb.sv
+R10
+!s110 1745082695
+!i10b 1
+!s100 7aM7UARiPj@F>iMHLb@oY0
+IBlj1l5ADC60R:>:C18OdN0
+S1
+R3
+w1745082677
+8I:\ECE_554\Just_Dance\dtw_tb.sv
+FI:\ECE_554\Just_Dance\dtw_tb.sv
+!i122 231
+L0 3 95
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vfifo
+2I:/ECE_554/Just_Dance/fifo.sv
+R10
+!s110 1745077606
+!i10b 1
+!s100 HkJ1QBzYG7V0;MPXcV^Zc2
+Ik@[0i^G5:J=aK9C4oz7dY3
+S1
+R3
+w1745022814
+8I:/ECE_554/Just_Dance/fifo.sv
+FI:/ECE_554/Just_Dance/fifo.sv
+!i122 219
+L0 1 56
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vgame_control
+2I:/ECE_554/Just_Dance/game_control.v
+Z13 !s110 1745077595
+!i10b 1
+!s100 X<ajf@]j4`K<KM9RjVS8T3
+IBzLCjWeznbfzgZa6RU>oX2
+R3
+w1744843660
+8I:/ECE_554/Just_Dance/game_control.v
+FI:/ECE_554/Just_Dance/game_control.v
+!i122 196
+L0 1 19
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+vgameloop
+2I:/ECE_554/Just_Dance/gameloop.sv
+R10
+Z14 !s110 1745077605
+!i10b 1
+!s100 N0U?B54^gbDi^ScJK@9fY2
+IjSBN=L7a>ZD3Ng5T3nX<23
+S1
+R3
+w1745022843
+8I:/ECE_554/Just_Dance/gameloop.sv
+FI:/ECE_554/Just_Dance/gameloop.sv
+!i122 216
+L0 1 22
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vhappy_feet
+2I:/ECE_554/Just_Dance/happy_feet.sv
+R10
+!s110 1745081369
+!i10b 1
+!s100 dX23k;L;Wio;=XbP<2gVE1
+IPcjc<moFiAoPHb2i<h8?F3
+S1
+R3
+w1745081297
+8I:/ECE_554/Just_Dance/happy_feet.sv
+FI:/ECE_554/Just_Dance/happy_feet.sv
+!i122 230
+L0 1 198
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vhier
+2I:/ECE_554/Just_Dance/hier.sv
+R10
+!s110 1745077601
+!i10b 1
+!s100 Y?PQkDPCm4lVEiiXe45`W1
+I7MiRdR]iRbgJ66NNDfOc13
+S1
+R3
+w1745015993
+8I:/ECE_554/Just_Dance/hier.sv
+FI:/ECE_554/Just_Dance/hier.sv
+!i122 208
+L0 1 115
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vI2C_CCD_Config
+2I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+Z15 !s110 1745077591
+!i10b 1
+!s100 6M4]:_]5ZITo?O:kD9e9L2
+ITf]nc90lDn41E`;daSb820
+R3
+R9
+8I:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+FI:/ECE_554/Just_Dance/v/I2C_CCD_Config.v
+!i122 187
+L0 43 227
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@i2@c_@c@c@d_@config
+vI2C_Controller
+2I:/ECE_554/Just_Dance/v/I2C_Controller.v
+R15
+!i10b 1
+!s100 z^0D>X0bZ8`gOa3gSKUH73
+IE6CHh71_h<fz47R;jNWoU2
+R3
+R9
+8I:/ECE_554/Just_Dance/v/I2C_Controller.v
+FI:/ECE_554/Just_Dance/v/I2C_Controller.v
+!i122 188
+L0 42 110
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@i2@c_@controller
+vlabel_unit
+2I:/ECE_554/Just_Dance/label_unit.sv
+R10
+Z16 !s110 1745077602
+!i10b 1
+!s100 ]^]>MWXAlZ9d7JOfWLjmH3
+I_ejDH^coWF9;RQEn2k[3n1
+S1
+R3
+w1745016059
+8I:/ECE_554/Just_Dance/label_unit.sv
+FI:/ECE_554/Just_Dance/label_unit.sv
+!i122 209
+L0 1 82
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vLine_Buffer1
+2I:/ECE_554/Just_Dance/v/Line_Buffer1.v
+Z17 !s110 1745077592
+!i10b 1
+!s100 9IJVMP?:d`<CG]LYO`2Sf2
+IJeK1@3P7hmgf8H=]O46]a0
+R3
+R9
+8I:/ECE_554/Just_Dance/v/Line_Buffer1.v
+FI:/ECE_554/Just_Dance/v/Line_Buffer1.v
+!i122 189
+L0 39 51
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@line_@buffer1
+vLUT
+2I:/ECE_554/Just_Dance/LUT.sv
+R10
+R16
+!i10b 1
+!s100 fKm=CSDEO;jLjMdaEM9UK3
+IQ;6:mlN07kTBSRG1z757g1
+S1
+R3
+w1745016040
+8I:/ECE_554/Just_Dance/LUT.sv
+FI:/ECE_554/Just_Dance/LUT.sv
+!i122 210
+L0 1 38
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+n@l@u@t
+vRAW2RGB
+2I:/ECE_554/Just_Dance/v/RAW2RGB.v
+R17
+!i10b 1
+!s100 k:M@8oJC]_k3hKZTFKHB>0
+I2BQG3lkWJ>kTh8?M`4@EV0
+R3
+w1745077579
+8I:/ECE_554/Just_Dance/v/RAW2RGB.v
+FI:/ECE_554/Just_Dance/v/RAW2RGB.v
+!i122 190
+L0 4 133
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@r@a@w2@r@g@b
+vReset_Delay
+2I:/ECE_554/Just_Dance/v/Reset_Delay.v
+Z18 !s110 1745077593
+!i10b 1
+!s100 BO]QNi;435TJ@V_FJDUKD3
+IJ`SBkARdozTYa;z`kg3zh0
+R3
+R9
+8I:/ECE_554/Just_Dance/v/Reset_Delay.v
+FI:/ECE_554/Just_Dance/v/Reset_Delay.v
+!i122 191
+L0 43 40
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@reset_@delay
+vscore
+2I:\ECE_554\Just_Dance\score.sv
+R10
+!s110 1745079483
+!i10b 1
+!s100 <520Rb<a4=L[z_@47KUmT2
+I:]cMFkBjG3IfMhc1`T7aO3
+S1
+R3
+w1745079471
+8I:\ECE_554\Just_Dance\score.sv
+FI:\ECE_554\Just_Dance\score.sv
+!i122 224
+L0 1 27
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R11
+R1
+vsdram_pll
+2I:/ECE_554/Just_Dance/v/sdram_pll.v
+R18
+!i10b 1
+!s100 ^SUTelAgzTFcog_:@PK4W2
+IfLS8g]ROF6EX`JmSOha]A2
+R3
+R9
+8I:/ECE_554/Just_Dance/v/sdram_pll.v
+FI:/ECE_554/Just_Dance/v/sdram_pll.v
+!i122 192
+L0 8 20
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+vSEG7_LUT
+2I:/ECE_554/Just_Dance/v/SEG7_LUT.v
+Z19 !s110 1745077594
+!i10b 1
+!s100 o1P=QAl9SobWckCbL^Flb3
+IRV;Of:5`mG@1a32J^d8X=3
+R3
+R9
+8I:/ECE_554/Just_Dance/v/SEG7_LUT.v
+FI:/ECE_554/Just_Dance/v/SEG7_LUT.v
+!i122 193
+L0 43 28
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@s@e@g7_@l@u@t
+vSEG7_LUT_6
+2I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+R19
+!i10b 1
+!s100 M2C49lj?<V]`o_<DP^3<^1
+I2J9_G^1:T^oeGbKNBLM@E1
+R3
+R9
+8I:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+FI:/ECE_554/Just_Dance/v/SEG7_LUT_6.v
+!i122 194
+L0 43 13
+R5
+R6
+r1
+!s85 0
+31
+!i113 0
+R7
+R1
+n@s@e@g7_@l@u@t_6
+vs

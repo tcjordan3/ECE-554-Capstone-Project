@@ -148,7 +148,6 @@ module happy_feet #(
         .ready(!dtw_ready_u),
         .ready_refer(ready_refer_u),
         .ready_camera(camera_ready_u),
-        .en(en),
         .done(done_u)
     );
 
@@ -176,7 +175,6 @@ module happy_feet #(
         .ready(!dtw_ready_ll),
         .ready_refer(ready_refer_ll),
         .ready_camera(camera_ready_ll),
-        .en(en),
         .done(done_ll)
     );
 
@@ -204,7 +202,6 @@ module happy_feet #(
         .ready(!dtw_ready_lr),
         .ready_refer(ready_refer_lr),
         .ready_camera(camera_ready_lr),
-        .en(en),
         .done(done_lr)
     );
 

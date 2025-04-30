@@ -1,0 +1,70 @@
+
+State Machine - |DE1_SoC_CAMERA|RAW2RGB:u_raw2rgb|happy_feet:happy_feet_inst|dtw:iDTW_U|state
+Name state.DONE state.COMPUTE state.INCR state.IDLE 
+state.IDLE 0 0 0 0 
+state.INCR 0 0 1 1 
+state.COMPUTE 0 1 0 1 
+state.DONE 1 0 0 1 
+
+State Machine - |DE1_SoC_CAMERA|RAW2RGB:u_raw2rgb|happy_feet:happy_feet_inst|dtw:iDTW_LL|state
+Name state.DONE state.COMPUTE state.INCR state.IDLE 
+state.IDLE 0 0 0 0 
+state.INCR 0 0 1 1 
+state.COMPUTE 0 1 0 1 
+state.DONE 1 0 0 1 
+
+State Machine - |DE1_SoC_CAMERA|RAW2RGB:u_raw2rgb|happy_feet:happy_feet_inst|dtw:iDTW_LR|state
+Name state.DONE state.COMPUTE state.INCR state.IDLE 
+state.IDLE 0 0 0 0 
+state.INCR 0 0 1 1 
+state.COMPUTE 0 1 0 1 
+state.DONE 1 0 0 1 
+
+State Machine - |DE1_SoC_CAMERA|RAW2RGB:u_raw2rgb|happy_feet:happy_feet_inst|cordic:iCORDIC_LR|cordic_iteration:iCORDIC_ITERATION|state
+Name state.IDLE state.DONE state.ITERATE 
+state.IDLE 0 0 0 
+state.ITERATE 1 0 1 
+state.DONE 1 1 0 
+
+State Machine - |DE1_SoC_CAMERA|RAW2RGB:u_raw2rgb|happy_feet:happy_feet_inst|cordic:iCORDIC_LL|cordic_iteration:iCORDIC_ITERATION|state
+Name state.IDLE state.DONE state.ITERATE 
+state.IDLE 0 0 0 
+state.ITERATE 1 0 1 
+state.DONE 1 1 0 
+
+State Machine - |DE1_SoC_CAMERA|RAW2RGB:u_raw2rgb|happy_feet:happy_feet_inst|cordic:iCORDIC_U|cordic_iteration:iCORDIC_ITERATION|state
+Name state.IDLE state.DONE state.ITERATE 
+state.IDLE 0 0 0 
+state.ITERATE 1 0 1 
+state.DONE 1 1 0 
+
+State Machine - |DE1_SoC_CAMERA|uart_tx:u_uart_tx|state
+Name state.STOP_BIT state.DATA_BITS state.START_BIT state.IDLE 
+state.IDLE 0 0 0 0 
+state.START_BIT 0 0 1 1 
+state.DATA_BITS 0 1 0 1 
+state.STOP_BIT 1 0 0 1 
+
+State Machine - |DE1_SoC_CAMERA|I2C_CCD_Config:u_i2c|mSetup_ST
+Name mSetup_ST.0000 mSetup_ST.0010 mSetup_ST.0001 
+mSetup_ST.0000 0 0 0 
+mSetup_ST.0001 1 0 1 
+mSetup_ST.0010 1 1 0 
+
+State Machine - |DE1_SoC_CAMERA|fsm_state
+Name fsm_state.S_END fsm_state.S_CAPTURE fsm_state.S_COUNT1 fsm_state.S_COUNT2 fsm_state.S_COUNT3 fsm_state.S_SPLASH 
+fsm_state.S_SPLASH 0 0 0 0 0 0 
+fsm_state.S_COUNT3 0 0 0 0 1 1 
+fsm_state.S_COUNT2 0 0 0 1 0 1 
+fsm_state.S_COUNT1 0 0 1 0 0 1 
+fsm_state.S_CAPTURE 0 1 0 0 0 1 
+fsm_state.S_END 1 0 0 0 0 1 
+
+State Machine - |DE1_SoC_CAMERA|prev_st
+Name prev_st.S_END prev_st.S_CAPTURE prev_st.S_COUNT1 prev_st.S_COUNT2 prev_st.S_COUNT3 prev_st.S_SPLASH 
+prev_st.S_SPLASH 0 0 0 0 0 0 
+prev_st.S_COUNT3 0 0 0 0 1 1 
+prev_st.S_COUNT2 0 0 0 1 0 1 
+prev_st.S_COUNT1 0 0 1 0 0 1 
+prev_st.S_CAPTURE 0 1 0 0 0 1 
+prev_st.S_END 1 0 0 0 0 1 
