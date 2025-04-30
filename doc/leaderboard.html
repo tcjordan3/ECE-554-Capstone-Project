@@ -9,26 +9,143 @@
         body {
             background-color: #ffffff;
         }
+
+        /* Page title */
         .page-title {
             padding-top: 40px;
             padding-bottom: 20px;
             border-bottom: 1px solid #dee2e6;
             margin-bottom: 30px;
+            text-align: center;
         }
+
+        /* Navbar styling */
+        nav {
+            background-color: #343a40;
+        }
+
+        nav a {
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        /* Leaderboard card styling */
         .leaderboard-card {
-            border: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
             border-radius: 0.5rem;
             padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
             transition: box-shadow 0.2s ease-in-out;
         }
+
         .leaderboard-card:hover {
             box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
         }
-        .score-entry {
+
+        /* Highlighting leaderboard section */
+        .highlight-leaderboard {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        /* Leaderboard column styling */
+        .leaderboard-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 10px;
+            color: white;
+        }
+
+        .leaderboard-container div {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .highlight-leaderboard .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .highlight-leaderboard .leaderboard-item:nth-child(odd) {
+            background-color: #555;
+        }
+
+        .highlight-leaderboard .leaderboard-item:hover {
+            background-color: #ffd700;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .highlight-leaderboard .leaderboard-item div {
+            flex: 1;
+        }
+
+        /* Form styling */
+        .score-entry input,
+        .score-entry button {
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            background-color: #fff;
+        }
+
+        .score-entry input {
+            width: 45%;
+            margin-right: 15px;
+        }
+
+        .score-entry button {
+            width: 45%;
+            background-color: #343a40;
+            color: white;
+            border: none;
+        }
+
+        .score-entry button:hover {
+            background-color: #ffd700;
+        }
+
+        /* Clear leaderboard button */
+        .clear-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff4c4c;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
             margin-top: 20px;
         }
-        .score-entry input {
-            margin-right: 10px;
+
+        .clear-button:hover {
+            background-color: #ff2a2a;
+        }
+
+        @media (max-width: 768px) {
+            .score-entry input,
+            .score-entry button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -37,20 +154,18 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">ECE554-SP25 Capstone Project</a>
+            <a class="navbar-brand" href="../index.html">Happy Feet: ECE554 Capstone</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="timeline.html">Timeline</a></li>
                     <li class="nav-item"><a class="nav-link" href="weekly-reports.html">Weekly Reports</a></li>
-                    <li class="nav-item"><a class="nav-link" href="proposal.html">Proposal</a></li>
-                    <li class="nav-item"><a class="nav-link" href="architecture-review.html">Architecture Review</a></li>
-                    <li class="nav-item"><a class="nav-link" href="microarchitecture-review.html">Microarchitecture Review</a></li>
                     <li class="nav-item"><a class="nav-link" href="final-docs.html">Final Documents</a></li>
                     <li class="nav-item"><a class="nav-link" href="demo.html">Demo</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="leaderboard.html">Leaderboard</a></li> <!-- Add this line -->
+                    <li class="nav-item"><a class="nav-link active" href="leaderboard.html">Leaderboard</a></li>
                 </ul>
             </div>
         </div>
@@ -58,64 +173,53 @@
 
     <!-- Main Content -->
     <div class="container">
-        <div class="page-title text-center">
+        <div class="page-title">
             <h2>Leaderboard</h2>
-            <p class="text-muted">Submit your score and see how you stack up!</p>
+            <p class="text-muted">View the top dancers and their scores in Happy Feet!</p>
         </div>
 
-        <!-- Score Entry Form -->
-        <div class="row justify-content-center score-entry">
-            <div class="col-md-8">
-                <div class="leaderboard-card">
-                    <h5>Submit Your Score</h5>
-                    <form id="scoreForm">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Your Name:</label>
-                            <input type="text" class="form-control" id="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="score" class="form-label">Your Score:</label>
-                            <input type="number" class="form-control" id="score" required min="1">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Score</button>
-                    </form>
-                </div>
+        <!-- Leaderboard Display (Highlighted) -->
+        <div class="highlight-leaderboard">
+            <div class="leaderboard-container">
+                <div>Name</div>
+                <div>Score</div>
+            </div>
+            <div id="leaderboard">
+                <!-- Leaderboard entries will go here -->
             </div>
         </div>
 
-        <!-- Leaderboard -->
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="leaderboard-card">
-                    <h5>Leaderboard</h5>
-                    <ul id="leaderboard" class="list-group">
-                        <!-- Leaderboard entries will go here -->
-                    </ul>
-                    <!-- Clear Leaderboard Button -->
-                    <button id="clearLeaderboard" class="btn btn-danger mt-3">Clear Leaderboard</button>
-                </div>
-            </div>
+        <!-- Submit Score Form -->
+        <div class="leaderboard-card">
+            <h3>Submit Your Score</h3>
+            <form id="scoreForm" class="score-entry">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="number" id="score" placeholder="Your Score" required min="1">
+                <button type="submit">Submit Score</button>
+            </form>
         </div>
+
+        <!-- Clear Leaderboard Button -->
+        <button id="clearLeaderboard" class="clear-button">Clear Leaderboard</button>
     </div>
 
     <script>
-        // Check if leaderboard exists in localStorage, otherwise initialize it
         const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-
         const leaderboardList = document.getElementById('leaderboard');
         const scoreForm = document.getElementById('scoreForm');
         const clearLeaderboardBtn = document.getElementById('clearLeaderboard');
 
-        // Display current leaderboard
+        // Display current leaderboard (Top 5 only)
         function displayLeaderboard() {
             leaderboardList.innerHTML = '';
             leaderboard
                 .sort((a, b) => a.score - b.score) // Lower score is better
+                .slice(0, 5) // Show top 5 scores only
                 .forEach(entry => {
-                    const li = document.createElement('li');
-                    li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                    li.textContent = `${entry.name}: ${entry.score}`;
-                    leaderboardList.appendChild(li);
+                    const div = document.createElement('div');
+                    div.className = 'leaderboard-item';
+                    div.innerHTML = `<div>${entry.name}</div><div>${entry.score}</div>`;
+                    leaderboardList.appendChild(div);
                 });
         }
 
