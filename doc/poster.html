@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster | Happy Feet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        .page-title {
+            padding-top: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 30px;
+        }
+        .poster-viewer {
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            padding: 20px;
+            margin-bottom: 40px;
+            background-color: #f8f9fa;
+        }
+        iframe {
+            width: 100%;
+            height: 1000px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="../index.html">ECE554-SP25 Capstone Project</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="timeline.html">Timeline</a></li>
+                <li class="nav-item"><a class="nav-link" href="weekly-reports.html">Weekly Reports</a></li>
+                <li class="nav-item"><a class="nav-link active" href="poster.html">Poster</a></li>
+                <li class="nav-item"><a class="nav-link" href="final-docs.html">Final Documents</a></li>
+                <li class="nav-item"><a class="nav-link" href="demo.html">Demo</a></li>
+                <li class="nav-item"><a class="nav-link" href="leaderboard.html">Leaderboard</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="page-title text-center">
+        <h2>Happy Feet Poster</h2>
+        <p class="text-muted">An overview of our interactive dance system, Happy Feet, in visual format.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="poster-viewer">
+                <iframe src="../report/happyfeet.pdf"></iframe>
+                <div class="text-center mt-3">
+                    <a class="btn btn-outline-primary" href="../report/happyfeet.pdf" download>
+                        ⬇️ Download Poster (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
